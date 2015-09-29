@@ -145,6 +145,34 @@ class Wp_Helpscout_Beacon_Admin {
             )
         );
 
+        // Docs search checbox
+        add_settings_field(
+            'helpscout_enable_docs',                                      // ID used to identify the field throughout the theme
+            'Enable documentation search',                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
+            $settings_fields,                                         // The page on which this option will be displayed
+            'hsb_beacon_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
+                '',
+                'helpscout_enable_docs'
+            )
+        );
+
+        // Contact form search checbox
+        add_settings_field(
+            'helpscout_enable_contact_form',                                      // ID used to identify the field throughout the theme
+            'Enable contact form',                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
+            $settings_fields,                                         // The page on which this option will be displayed
+            'hsb_beacon_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
+                '',
+                'helpscout_enable_contact_form'
+            )
+        );
+
+
+
         // Finally, we register the fields with WordPress
         register_setting( $settings_fields, 'show_header' );
 
@@ -159,15 +187,16 @@ class Wp_Helpscout_Beacon_Admin {
     } // end hsb_beacon_settings_description
 
     function hsb_textfield_callback($args) {
-        // Note the ID and the name attribute of the element match that of the ID in the call to add_settings_field
-        // 
-        $html = '<input type="text" id="' . $args[1] . '" name="show_header">';
+        $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '">';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
-
-        // Here, we will take the first argument of the array and add it to a label next to the checkbox
-
         echo $html;
-    } 
+    }
+
+    function hsb_checkbox_callback($args) {
+        $html = '<input type="checkbox" id="' . $args[1] . '" name="' . $args[1] . '">';
+        $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
+        echo $html;
+    }
 
 
     public function hsb_add_settings_page_callback() {
