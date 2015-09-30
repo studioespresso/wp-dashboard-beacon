@@ -208,7 +208,7 @@ class Wp_Helpscout_Beacon_Admin {
             <form method="post" action="options.php">
                 <?php
                 // Output the settings sections.
-                wp( 'helpscout_beacon' );
+                do_settings_sections( 'helpscout_beacon' );
                 // Output the hidden fields, nonce, etc.
                 settings_fields( 'helpscout_beacon' );
                 // Submit button.
