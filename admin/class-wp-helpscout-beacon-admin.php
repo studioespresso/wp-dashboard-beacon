@@ -171,29 +171,29 @@ class Wp_Helpscout_Beacon_Admin {
             )
         );
 
+        register_setting( $settings_fields, 'helpscout_subdomain' );
+        register_setting( $settings_fields, 'helpscout_form_id' );
+        register_setting( $settings_fields, 'helpscout_enable_docs' );
+        register_setting( $settings_fields, 'helpscout_enable_contact_form' );
 
-
-        // Finally, we register the fields with WordPress
-        register_setting( $settings_fields, 'show_header' );
-
-    } // end sandbox_initialize_theme_options
+    }
 
     function hsb_account_settings_description($args) {
         echo '<p>Connect your HelpScout account</p>';
-    } // end hsb_account_settings_description
+    }
 
     function hsb_beacon_settings_description($args) {
         echo '<p>Set up your beacon</p>';
-    } // end hsb_beacon_settings_description
+    }
 
     function hsb_textfield_callback($args) {
-        $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '">';
+        $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '" value="' . get_option($args[1]) .'">';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
         echo $html;
     }
 
     function hsb_checkbox_callback($args) {
-        $html = '<input type="checkbox" id="' . $args[1] . '" name="' . $args[1] . '">';
+        $html = '<input type="checkbox" id="' . $args[1] .'" name="' . $args[1] .'" value="1" ' . checked(1, get_option($args[1]), false) . '/>';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
         echo $html;
     }
@@ -201,7 +201,6 @@ class Wp_Helpscout_Beacon_Admin {
 
     public function hsb_add_settings_page_callback() {
         ?>
-
         <div class="wrap">
             <h2><?php echo __('Helpscout Beanson settings', 'wp-helpscout-beacon'); ?></h2>
             <p>Some text describing what the plugin settings do.</p>
@@ -209,7 +208,7 @@ class Wp_Helpscout_Beacon_Admin {
             <form method="post" action="options.php">
                 <?php
                 // Output the settings sections.
-                do_settings_sections( 'helpscout_beacon' );
+                wp( 'helpscout_beacon' );
                 // Output the hidden fields, nonce, etc.
                 settings_fields( 'helpscout_beacon' );
                 // Submit button.
