@@ -73,6 +73,7 @@ class Wp_Helpscout_Beacon_Admin {
 		 * class.
 		 */
 
+
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-helpscout-beacon-admin.css', array(), $this->version, 'all' );
 
 	}
@@ -96,7 +97,11 @@ class Wp_Helpscout_Beacon_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-helpscout-beacon-admin.js', array( 'jquery' ), $this->version, false );
+        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-helpscout-beacon-admin.js', array( 'jquery' ), $this->version, false );
+        wp_localize_script( $this->plugin_name, 'hsb_settings', array(
+            'formId' => get_option('helpscout_form_id'),
+            'subDomain' => get_option('helpscout_subdomain')
+        ));
 
 	}
 
