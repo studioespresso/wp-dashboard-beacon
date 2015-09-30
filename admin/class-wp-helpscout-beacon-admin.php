@@ -100,7 +100,9 @@ class Wp_Helpscout_Beacon_Admin {
         wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-helpscout-beacon-admin.js', array( 'jquery' ), $this->version, false );
         wp_localize_script( $this->plugin_name, 'hsb_settings', array(
             'formId' => get_option('helpscout_form_id'),
-            'subDomain' => get_option('helpscout_subdomain')
+            'subDomain' => get_option('helpscout_subdomain'),
+            'enableDocs' => get_option('helpscout_enable_docs'),
+            'enableContact' => get_option('helpscout_enable_contact_form')
         ));
 
 	}
