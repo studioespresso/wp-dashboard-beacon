@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Helpscout Beacon
  * Plugin URI:        http://onedge.be
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Easily integrate a Helpscout Beacon in your dashboard or website.
  * Version:           1.0.0
  * Author:            Jan Henckens
  * Author URI:        http://onedge.be
