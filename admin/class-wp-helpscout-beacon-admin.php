@@ -102,7 +102,28 @@ class Wp_Helpscout_Beacon_Admin {
             'formId' => get_option('helpscout_form_id'),
             'subDomain' => get_option('helpscout_subdomain'),
             'enableDocs' => get_option('helpscout_enable_docs'),
-            'enableContact' => get_option('helpscout_enable_contact_form')
+            'enableContact' => get_option('helpscout_enable_contact_form'),
+            'strings' => array(
+                'searchLabel' => __('What can we help you with?', 'wp-helpscout-beacon'),
+                'searchErrorLabel' => __('Your search timed out. Please double-check your internet connection and try again.', 'wp-helpscout-beacon'),
+                'noResultsLabel' => __('No results found for', 'wp-helpscout-beacon'),
+                'contactLabel' => __('Send a Message', 'wp-helpscout-beacon'),
+                'attachFileLabel' => __('Attach a file', 'wp-helpscout-beacon'),
+                'attachFileError' => __('The maximum file size is 10mb', 'wp-helpscout-beacon'),
+                'nameLabel' => __('Your Name', 'wp-helpscout-beacon'),
+                'nameError' => __('Please enter your name', 'wp-helpscout-beacon'),
+                'emailLabel' => __('Email address', 'wp-helpscout-beacon'),
+                'emailError' => __('Please enter a valid email address', 'wp-helpscout-beacon'),
+                'topicLabel' => __('Select a topic', 'wp-helpscout-beacon'),
+                'topicError' => __('Please select a topic from the list', 'wp-helpscout-beacon'),
+                'subjectLabel' => __('Subject', 'wp-helpscout-beacon'),
+                'subjectError' => __('Please enter a subject', 'wp-helpscout-beacon'),
+                'messageLabel' => __('How can we help you?', 'wp-helpscout-beacon'),
+                'messageError' => __('Please enter a message', 'wp-helpscout-beacon'),
+                'sendLabel' => __('Send', 'wp-helpscout-beacon'),
+                'contactSuccessLabel' => __('Message sent!', 'wp-helpscout-beacon'),
+                'contactSuccessDescription' => __('Thanks for reaching out! Someone from our team will get back to you soon.', 'wp-helpscout-beacon')
+            )
         ));
 
 	}
