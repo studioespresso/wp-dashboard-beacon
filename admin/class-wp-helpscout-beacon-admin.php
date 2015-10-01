@@ -137,14 +137,14 @@ class Wp_Helpscout_Beacon_Admin {
             'hsb_account_settings',                                     // ID used to identify this section and with which to register options
             __('Helpscout account settings', 'wp-helpscout-beacon'),    // Title to be displayed on the administration page
             array( $this, 'hsb_account_settings_description'),          // Callback used to render the description of the section
-            $settings_fields                                         // Page on which to add this section of options
+            'hsb_account_settings'                                         // Page on which to add this section of options
         );
 
         add_settings_section(
             'hsb_beacon_settings',                                     // ID used to identify this section and with which to register options
             __('Beacon settings', 'wp-helpscout-beacon'),    // Title to be displayed on the administration page
             array( $this, 'hsb_beacon_settings_description'),          // Callback used to render the description of the section
-            $settings_fields                                         // Page on which to add this section of options
+            'hsb_account_settings'                                         // Page on which to add this section of options
         );
 
         // Subdomain field
@@ -152,7 +152,7 @@ class Wp_Helpscout_Beacon_Admin {
             'helpscout_subdomain',                                      // ID used to identify the field throughout the theme
             'Helpscout subdomain',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_textfield_callback'),              // The name of the function responsible for rendering the option interface
-            $settings_fields,                                         // The page on which this option will be displayed
+            'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_account_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
                 'Enter the subdomain of your helpscout account',
@@ -165,7 +165,7 @@ class Wp_Helpscout_Beacon_Admin {
             'helpscout_form_id',                                      // ID used to identify the field throughout the theme
             'Form ID',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_textfield_callback'),              // The name of the function responsible for rendering the option interface
-            $settings_fields,                                         // The page on which this option will be displayed
+            'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_account_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
                 'Enter the form ID for your beacon',
@@ -178,7 +178,7 @@ class Wp_Helpscout_Beacon_Admin {
             'helpscout_enable_docs',                                      // ID used to identify the field throughout the theme
             'Enable documentation search',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
-            $settings_fields,                                         // The page on which this option will be displayed
+            'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
                 '',
@@ -191,7 +191,7 @@ class Wp_Helpscout_Beacon_Admin {
             'helpscout_enable_contact_form',                                      // ID used to identify the field throughout the theme
             'Enable contact form',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
-            $settings_fields,                                         // The page on which this option will be displayed
+            'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
                 '',
@@ -232,14 +232,24 @@ class Wp_Helpscout_Beacon_Admin {
         <div class="wrap">
             <h2><?php echo __('Helpscout Beanson settings', 'wp-helpscout-beacon'); ?></h2>
             <p>Some text describing what the plugin settings do.</p>
+            <?php settings_errors(); ?>
+            <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'display_options'; // end if?>
 
+            <h2 class="nav-tab-wrapper">
+                <a href="?page=helpscout_beacon&tab=hsb_account_settings" class="nav-tab <?php echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-helpscout-beacon'); ?></a>
+                <a href="?page=helpscout_beacon&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-helpscout-beacon'); ?> </a>
+            </h2>
             <form method="post" action="options.php">
                 <?php
-                // Output the settings sections.
-                do_settings_sections( 'helpscout_beacon' );
-                // Output the hidden fields, nonce, etc.
-                settings_fields( 'helpscout_beacon' );
-                // Submit button.
+                if( $active_tab == 'hsb_account_settings' ) {
+                    settings_fields( 'hsb_account_settings' );
+                    do_settings_sections( 'hsb_account_settings' );
+                    settings_fields( 'hsb_beacon_settings' );
+                    do_settings_sections( 'hsb_beacon_settings' );
+                } elseif( $active_tab =='hsb_beacon_display_settings' ) {
+
+                } // end if/else
+
                 submit_button();
                 ?>
             </form>
