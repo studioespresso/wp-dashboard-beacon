@@ -232,10 +232,10 @@ class Wp_Dashboard_Beacon_Admin {
             <?php settings_errors(); ?>
             <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'hsb_account_settings'; // end if?>
 
-            <h2 class="nav-tab-wrapper">
-                <a href="?page=dashboard_beacon&tab=hsb_account_settings" class="nav-tab <?php echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
-                <a href="?page=dashboard_beacon&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?> </a>
-            </h2>
+<!--            <h2 class="nav-tab-wrapper">-->
+<!--                <a href="?page=dashboard_beacon&tab=hsb_account_settings" class="nav-tab --><?php //echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?><!--">--><?php //echo __('Setup','wp-dashboard-beacon'); ?><!--</a>-->
+<!--                <a href="?page=dashboard_beacon&tab=hsb_beacon_display_settings" class="nav-tab --><?php //echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?><!--">--><?php //echo __('Display settings','wp-dashboard-beacon'); ?><!-- </a>-->
+<!--            </h2>-->
             <form method="post" action="options.php">
                 <?php
                 if( $active_tab == 'hsb_account_settings' ) {
