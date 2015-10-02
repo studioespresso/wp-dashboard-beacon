@@ -228,7 +228,6 @@ class Wp_Dashboard_Beacon_Admin {
         ?>
         <div class="wrap">
             <h2><?php echo __('Help Scout beacon settings', 'wp-dashboard-beacon'); ?></h2>
-            <p>Some text describing what the plugin settings do.</p>
             <?php settings_errors(); ?>
             <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'hsb_account_settings'; // end if?>
 
