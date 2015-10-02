@@ -32,11 +32,15 @@
     // beacon, buoy, message, question or search.
 
     var formId = hsb_settings.formId;
-    var subDomain = 'http://' + hsb_settings.subDomain + '.helpscoutdocs.com';
     var beaconOptions = hsb_settings.beaconOptions;
-    console.log(beaconOptions);
     if(beaconOptions === 'docs' || beaconOptions === 'contact_docs') { var enableDocs = 1; } else { var enableDocs = 0; }
     if(beaconOptions === 'contact' || beaconOptions === 'contact_docs') { var enableContact = 1; } else { var enableContact = 0; }
+    if(hsb_settings.subDomain != '') {
+        var subDomain = 'http://' + hsb_settings.subDomain + '.helpscoutdocs.com';
+    } else {
+        enableDocs = 0;
+        subDomain = '';
+    }
     if (formId) {
         !function (e, o, n) {
             window.HSCW = o, window.HS = n, n.beacon = n.beacon || {};
