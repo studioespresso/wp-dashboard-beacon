@@ -29,6 +29,8 @@
 	 * be doing this, we should try to minimize doing that in our own work.
 	 */
 
+    // beacon, buoy, message, question or search.
+
     var formId = hsb_settings.formId;
     var subDomain = 'http://' + hsb_settings.subDomain + '.helpscoutdocs.com';
     var enableDocs = hsb_settings.enableDocs;
@@ -76,6 +78,7 @@
                     r.parentNode.insertBefore(c, r)
             }(document, window.HSCW || {}, window.HS || {}
             );
+
         }
     }
 })( jQuery );
