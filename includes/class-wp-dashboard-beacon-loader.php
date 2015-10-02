@@ -6,8 +6,8 @@
  * @link       http://onedge.be
  * @since      1.0.0
  *
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/includes
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/includes
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/includes
  * @author     Jan Henckens <jan@onedge.be>
  */
-class Wp_Helpscout_Beacon_Loader {
+class Wp_dashboard_Beacon_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

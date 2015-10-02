@@ -6,8 +6,8 @@
  * @link       http://onedge.be
  * @since      1.0.0
  *
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/includes
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's activation.
  *
  * @since      1.0.0
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/includes
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/includes
  * @author     Jan Henckens <jan@onedge.be>
  */
-class Wp_Helpscout_Beacon_Activator {
+class Wp_dashboard_Beacon_Activator {
 
 	/**
 	 * Short Description. (use period)

@@ -32,7 +32,7 @@
     // beacon, buoy, message, question or search.
 
     var formId = hsb_settings.formId;
-    var subDomain = 'http://' + hsb_settings.subDomain + '.helpscoutdocs.com';
+    var subDomain = 'http://' + hsb_settings.subDomain + '.dashboarddocs.com';
     var enableDocs = hsb_settings.enableDocs;
     var enableContact = hsb_settings.enableContact
 

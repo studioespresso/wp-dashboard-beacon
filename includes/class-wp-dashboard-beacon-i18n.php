@@ -9,8 +9,8 @@
  * @link       http://onedge.be
  * @since      1.0.0
  *
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/includes
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/includes
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/includes
  * @author     Jan Henckens <jan@onedge.be>
  */
-class Wp_Helpscout_Beacon_i18n {
+class Wp_dashboard_Beacon_i18n {
 
 	/**
 	 * The domain specified for this plugin.

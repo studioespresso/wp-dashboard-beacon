@@ -22,7 +22,7 @@
  * @link       http://onedge.be
  * @since      1.0.0
  *
- * @package    Wp_Helpscout_Beacon
+ * @package    Wp_dashboard_Beacon
  */
 
 // If uninstall not called from WordPress, then exit.

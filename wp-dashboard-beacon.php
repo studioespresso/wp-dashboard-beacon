@@ -10,10 +10,10 @@
  *
  * @link              http://onedge.be
  * @since             1.0.0
- * @package           Wp_Helpscout_Beacon
+ * @package           Wp_Dashboard_Beacon
  *
  * @wordpress-plugin
- * Plugin Name:       Helpscout Beacon
+ * Plugin Name:       Dashboard Beacon
  * Plugin URI:        http://onedge.be
  * Description:       Easily integrate a Helpscout Beacon in your dashboard or website.
  * Version:           1.0.0
@@ -21,7 +21,7 @@
  * Author URI:        http://onedge.be
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wp-helpscout-beacon
+ * Text Domain:       wp-dashboard-beacon
  * Domain Path:       /languages
  */
 
@@ -32,24 +32,24 @@ if ( ! defined( 'WPINC' ) ) {
 
 /**
  * The code that runs during plugin activation.
- * This action is documented in includes/class-wp-helpscout-beacon-activator.php
+ * This action is documented in includes/class-wp-dashboard-beacon-activator.php
  */
-function activate_wp_helpscout_beacon() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-helpscout-beacon-activator.php';
-	Wp_Helpscout_Beacon_Activator::activate();
+function activate_wp_dashboard_beacon() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-dashboard-beacon-activator.php';
+	Wp_Dashboard_Beacon_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
- * This action is documented in includes/class-wp-helpscout-beacon-deactivator.php
+ * This action is documented in includes/class-wp-dashboard-beacon-deactivator.php
  */
-function deactivate_wp_helpscout_beacon() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-helpscout-beacon-deactivator.php';
-	Wp_Helpscout_Beacon_Deactivator::deactivate();
+function deactivate_wp_dashboard_beacon() {
+	require_once plugin_dir_path( __FILE__ ) . 'includes/class-wp-dashboard-beacon-deactivator.php';
+	Wp_Dashboard_Beacon_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_wp_helpscout_beacon' );
-register_deactivation_hook( __FILE__, 'deactivate_wp_helpscout_beacon' );
+register_activation_hook( __FILE__, 'activate_wp_dashboard_beacon' );
+register_deactivation_hook( __FILE__, 'deactivate_wp_dashboard_beacon' );
 
 /**
  * The core plugin class that is used to define internationalization,
@@ -66,10 +66,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-wp-dashboard-beacon.php';
  *
  * @since    1.0.0
  */
-function run_wp_helpscout_beacon() {
+function run_wp_dashboard_beacon() {
 
-	$plugin = new Wp_Helpscout_Beacon();
+	$plugin = new Wp_Dashboard_Beacon();
 	$plugin->run();
 
 }
-run_wp_helpscout_beacon();
+run_wp_dashboard_beacon();

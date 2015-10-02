@@ -8,8 +8,8 @@
  * @link       http://onedge.be
  * @since      1.0.0
  *
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/public/partials
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/public/partials
  */
 ?>
 

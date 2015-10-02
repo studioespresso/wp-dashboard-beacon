@@ -6,8 +6,8 @@
  * @link       http://onedge.be
  * @since      1.0.0
  *
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/admin
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Wp_Helpscout_Beacon
- * @subpackage Wp_Helpscout_Beacon/admin
+ * @package    Wp_dashboard_Beacon
+ * @subpackage Wp_dashboard_Beacon/admin
  * @author     Jan Henckens <jan@onedge.be>
  */
-class Wp_Helpscout_Beacon_Admin {
+class Wp_Dashboard_Beacon_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -65,16 +65,16 @@ class Wp_Helpscout_Beacon_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Helpscout_Beacon_Loader as all of the hooks are defined
+		 * defined in Wp_dashboard_Beacon_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wp_Helpscout_Beacon_Loader will then create the relationship
+		 * The Wp_dashboard_Beacon_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-helpscout-beacon-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-dashboard-beacon-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -89,40 +89,40 @@ class Wp_Helpscout_Beacon_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wp_Helpscout_Beacon_Loader as all of the hooks are defined
+		 * defined in Wp_dashboard_Beacon_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wp_Helpscout_Beacon_Loader will then create the relationship
+		 * The Wp_dashboard_Beacon_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-helpscout-beacon-admin.js', array( 'jquery' ), $this->version, false );
+        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-dashboard-beacon-admin.js', array( 'jquery' ), $this->version, false );
         wp_localize_script( $this->plugin_name, 'hsb_settings', array(
-            'formId' => get_option('helpscout_form_id'),
-            'subDomain' => get_option('helpscout_subdomain'),
-            'enableDocs' => get_option('helpscout_enable_docs'),
-            'enableContact' => get_option('helpscout_enable_contact_form'),
+            'formId' => get_option('dashboard_form_id'),
+            'subDomain' => get_option('dashboard_subdomain'),
+            'enableDocs' => get_option('dashboard_enable_docs'),
+            'enableContact' => get_option('dashboard_enable_contact_form'),
             'strings' => array(
-                'searchLabel' => __('What can we help you with?', 'wp-helpscout-beacon'),
-                'searchErrorLabel' => __('Your search timed out. Please double-check your internet connection and try again.', 'wp-helpscout-beacon'),
-                'noResultsLabel' => __('No results found for', 'wp-helpscout-beacon'),
-                'contactLabel' => __('Send a Message', 'wp-helpscout-beacon'),
-                'attachFileLabel' => __('Attach a file', 'wp-helpscout-beacon'),
-                'attachFileError' => __('The maximum file size is 10mb', 'wp-helpscout-beacon'),
-                'nameLabel' => __('Your Name', 'wp-helpscout-beacon'),
-                'nameError' => __('Please enter your name', 'wp-helpscout-beacon'),
-                'emailLabel' => __('Email address', 'wp-helpscout-beacon'),
-                'emailError' => __('Please enter a valid email address', 'wp-helpscout-beacon'),
-                'topicLabel' => __('Select a topic', 'wp-helpscout-beacon'),
-                'topicError' => __('Please select a topic from the list', 'wp-helpscout-beacon'),
-                'subjectLabel' => __('Subject', 'wp-helpscout-beacon'),
-                'subjectError' => __('Please enter a subject', 'wp-helpscout-beacon'),
-                'messageLabel' => __('How can we help you?', 'wp-helpscout-beacon'),
-                'messageError' => __('Please enter a message', 'wp-helpscout-beacon'),
-                'sendLabel' => __('Send', 'wp-helpscout-beacon'),
-                'contactSuccessLabel' => __('Message sent!', 'wp-helpscout-beacon'),
-                'contactSuccessDescription' => __('Thanks for reaching out! Someone from our team will get back to you soon.', 'wp-helpscout-beacon')
+                'searchLabel' => __('What can we help you with?', 'wp-dashboard-beacon'),
+                'searchErrorLabel' => __('Your search timed out. Please double-check your internet connection and try again.', 'wp-dashboard-beacon'),
+                'noResultsLabel' => __('No results found for', 'wp-dashboard-beacon'),
+                'contactLabel' => __('Send a Message', 'wp-dashboard-beacon'),
+                'attachFileLabel' => __('Attach a file', 'wp-dashboard-beacon'),
+                'attachFileError' => __('The maximum file size is 10mb', 'wp-dashboard-beacon'),
+                'nameLabel' => __('Your Name', 'wp-dashboard-beacon'),
+                'nameError' => __('Please enter your name', 'wp-dashboard-beacon'),
+                'emailLabel' => __('Email address', 'wp-dashboard-beacon'),
+                'emailError' => __('Please enter a valid email address', 'wp-dashboard-beacon'),
+                'topicLabel' => __('Select a topic', 'wp-dashboard-beacon'),
+                'topicError' => __('Please select a topic from the list', 'wp-dashboard-beacon'),
+                'subjectLabel' => __('Subject', 'wp-dashboard-beacon'),
+                'subjectError' => __('Please enter a subject', 'wp-dashboard-beacon'),
+                'messageLabel' => __('How can we help you?', 'wp-dashboard-beacon'),
+                'messageError' => __('Please enter a message', 'wp-dashboard-beacon'),
+                'sendLabel' => __('Send', 'wp-dashboard-beacon'),
+                'contactSuccessLabel' => __('Message sent!', 'wp-dashboard-beacon'),
+                'contactSuccessDescription' => __('Thanks for reaching out! Someone from our team will get back to you soon.', 'wp-dashboard-beacon')
             )
         ));
 
@@ -131,83 +131,83 @@ class Wp_Helpscout_Beacon_Admin {
     /** Settings Initialization **/
     function hsb_register_settings() {
 
-        $settings_fields = 'helpscout_beacon';
+        $settings_fields = 'dashboard_beacon';
 
         add_settings_section(
             'hsb_account_settings',                                     // ID used to identify this section and with which to register options
-            __('Helpscout account settings', 'wp-helpscout-beacon'),    // Title to be displayed on the administration page
+            __('dashboard account settings', 'wp-dashboard-beacon'),    // Title to be displayed on the administration page
             array( $this, 'hsb_account_settings_description'),          // Callback used to render the description of the section
             'hsb_account_settings'                                         // Page on which to add this section of options
         );
 
         add_settings_section(
             'hsb_beacon_settings',                                     // ID used to identify this section and with which to register options
-            __('Beacon settings', 'wp-helpscout-beacon'),    // Title to be displayed on the administration page
+            __('Beacon settings', 'wp-dashboard-beacon'),    // Title to be displayed on the administration page
             array( $this, 'hsb_beacon_settings_description'),          // Callback used to render the description of the section
             'hsb_account_settings'                                         // Page on which to add this section of options
         );
 
         // Subdomain field
         add_settings_field(
-            'helpscout_subdomain',                                      // ID used to identify the field throughout the theme
-            'Helpscout subdomain',                                                   // The label to the left of the option interface element
+            'dashboard_subdomain',                                      // ID used to identify the field throughout the theme
+            'dashboard subdomain',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_textfield_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_account_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
-                'Enter the subdomain of your helpscout account',
-                'helpscout_subdomain'
+                'Enter the subdomain of your dashboard account',
+                'dashboard_subdomain'
             )
         );
 
         // Form ID field
         add_settings_field(
-            'helpscout_form_id',                                      // ID used to identify the field throughout the theme
+            'dashboard_form_id',                                      // ID used to identify the field throughout the theme
             'Form ID',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_textfield_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_account_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
                 'Enter the form ID for your beacon',
-                'helpscout_form_id'
+                'dashboard_form_id'
             )
         );
 
         // Docs search checbox
         add_settings_field(
-            'helpscout_enable_docs',                                      // ID used to identify the field throughout the theme
+            'dashboard_enable_docs',                                      // ID used to identify the field throughout the theme
             'Enable documentation search',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
                 '',
-                'helpscout_enable_docs'
+                'dashboard_enable_docs'
             )
         );
 
         // Contact form search checbox
         add_settings_field(
-            'helpscout_enable_contact_form',                                      // ID used to identify the field throughout the theme
+            'dashboard_enable_contact_form',                                      // ID used to identify the field throughout the theme
             'Enable contact form',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
                 '',
-                'helpscout_enable_contact_form'
+                'dashboard_enable_contact_form'
             )
         );
 
-        register_setting( $settings_fields, 'helpscout_subdomain' );
-        register_setting( $settings_fields, 'helpscout_form_id' );
-        register_setting( $settings_fields, 'helpscout_enable_docs' );
-        register_setting( $settings_fields, 'helpscout_enable_contact_form' );
+        register_setting( $settings_fields, 'dashboard_subdomain' );
+        register_setting( $settings_fields, 'dashboard_form_id' );
+        register_setting( $settings_fields, 'dashboard_enable_docs' );
+        register_setting( $settings_fields, 'dashboard_enable_contact_form' );
 
     }
 
     function hsb_account_settings_description($args) {
-        echo '<p>Connect your HelpScout account</p>';
+        echo '<p>Connect your dashboard account</p>';
     }
 
     function hsb_beacon_settings_description($args) {
@@ -230,14 +230,14 @@ class Wp_Helpscout_Beacon_Admin {
     public function hsb_add_settings_page_callback() {
         ?>
         <div class="wrap">
-            <h2><?php echo __('Helpscout Beanson settings', 'wp-helpscout-beacon'); ?></h2>
+            <h2><?php echo __('dashboard Beanson settings', 'wp-dashboard-beacon'); ?></h2>
             <p>Some text describing what the plugin settings do.</p>
             <?php settings_errors(); ?>
-            <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'display_options'; // end if?>
+            <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'hsb_account_settings'; // end if?>
 
             <h2 class="nav-tab-wrapper">
-                <a href="?page=helpscout_beacon&tab=hsb_account_settings" class="nav-tab <?php echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-helpscout-beacon'); ?></a>
-                <a href="?page=helpscout_beacon&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-helpscout-beacon'); ?> </a>
+                <a href="?page=dashboard_beacon&tab=hsb_account_settings" class="nav-tab <?php echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
+                <a href="?page=dashboard_beacon&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?> </a>
             </h2>
             <form method="post" action="options.php">
                 <?php
@@ -258,7 +258,7 @@ class Wp_Helpscout_Beacon_Admin {
 	}
 
 	public function hsb_add_settings_page() {
-		add_submenu_page( 'tools.php', 'Helpscout Beacon', 'Helpscout Beacon', 'manage_options', 'helpscout_beacon', array( $this, 'hsb_add_settings_page_callback') );
+		add_submenu_page( 'tools.php', 'Dashboard Beacon', 'Dashboard Beacon', 'manage_options', 'dashboard_beacon', array( $this, 'hsb_add_settings_page_callback') );
 	}
 
 
