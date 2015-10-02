@@ -32,53 +32,51 @@
     // beacon, buoy, message, question or search.
 
     var formId = hsb_settings.formId;
-    var subDomain = 'http://' + hsb_settings.subDomain + '.dashboarddocs.com';
-    var enableDocs = hsb_settings.enableDocs;
-    var enableContact = hsb_settings.enableContact
-
-    if(enableContact === '1' || enableDocs === '1') {
-        if (formId) {
-            !function (e, o, n) {
-                window.HSCW = o, window.HS = n, n.beacon = n.beacon || {};
-                var t = n.beacon;
-                t.userConfig = {}, t.readyQueue = [], t.config = function (e) {
-                    this.userConfig = e
+    var subDomain = 'http://' + hsb_settings.subDomain + '.helpscoutdocs.com';
+    var beaconOptions = hsb_settings.beaconOptions;
+    console.log(beaconOptions);
+    if(beaconOptions === 'docs' || beaconOptions === 'contact_docs') { var enableDocs = 1; } else { var enableDocs = 0; }
+    if(beaconOptions === 'contact' || beaconOptions === 'contact_docs') { var enableContact = 1; } else { var enableContact = 0; }
+    if (formId) {
+        !function (e, o, n) {
+            window.HSCW = o, window.HS = n, n.beacon = n.beacon || {};
+            var t = n.beacon;
+            t.userConfig = {}, t.readyQueue = [], t.config = function (e) {
+                this.userConfig = e
+            },
+                t.ready = function (e) {
+                    this.readyQueue.push(e)
                 },
-                    t.ready = function (e) {
-                        this.readyQueue.push(e)
+                o.config = {
+                    docs: {enabled: enableDocs, baseUrl: subDomain},
+                    contact: {enabled: enableContact, formId: formId},
+                    color: '#cacaca',
+                    translation: {
+                        'searchLabel': hsb_settings.strings.searchLabel,
+                        'searchErrorLabel': hsb_settings.strings.searchErrorLabel,
+                        'noResultsLabel': hsb_settings.strings.noResultsLabel,
+                        'contactLabel': hsb_settings.strings.contactLabel,
+                        'attachFileLabel': hsb_settings.strings.attachFileLabel,
+                        'attachFileError': hsb_settings.strings.attachFileError,
+                        'nameLabel': hsb_settings.strings.nameLabel,
+                        'nameError': hsb_settings.strings.nameError,
+                        'emailLabel': hsb_settings.strings.emailLabel,
+                        'emailError': hsb_settings.strings.emailError,
+                        'topicLabel': hsb_settings.strings.topicLabel,
+                        'topicError': hsb_settings.strings.topicError,
+                        'subjectLabel': hsb_settings.strings.subjectLabel,
+                        'subjectError': hsb_settings.strings.subjectError,
+                        'messageLabel': hsb_settings.strings.messageLabel,
+                        'messageError': hsb_settings.strings.messageError,
+                        'sendLabel': hsb_settings.strings.sendLabel,
+                        'contactSuccessLabel': hsb_settings.strings.contactSuccessLabel,
+                        'contactSuccessDescription': hsb_settings.strings.contactSuccessDescription,
                     },
-                    o.config = {
-                        docs: {enabled: enableDocs, baseUrl: subDomain},
-                        contact: {enabled: enableContact, formId: formId},
-                        color: '#cacaca',
-                        translation: {
-                            'searchLabel': hsb_settings.strings.searchLabel,
-                            'searchErrorLabel': hsb_settings.strings.searchErrorLabel,
-                            'noResultsLabel': hsb_settings.strings.noResultsLabel,
-                            'contactLabel': hsb_settings.strings.contactLabel,
-                            'attachFileLabel': hsb_settings.strings.attachFileLabel,
-                            'attachFileError': hsb_settings.strings.attachFileError,
-                            'nameLabel': hsb_settings.strings.nameLabel,
-                            'nameError': hsb_settings.strings.nameError,
-                            'emailLabel': hsb_settings.strings.emailLabel,
-                            'emailError': hsb_settings.strings.emailError,
-                            'topicLabel': hsb_settings.strings.topicLabel,
-                            'topicError': hsb_settings.strings.topicError,
-                            'subjectLabel': hsb_settings.strings.subjectLabel,
-                            'subjectError': hsb_settings.strings.subjectError,
-                            'messageLabel': hsb_settings.strings.messageLabel,
-                            'messageError': hsb_settings.strings.messageError,
-                            'sendLabel': hsb_settings.strings.sendLabel,
-                            'contactSuccessLabel': hsb_settings.strings.contactSuccessLabel,
-                            'contactSuccessDescription': hsb_settings.strings.contactSuccessDescription,
-                        },
-                    };
-                var r = e.getElementsByTagName("script")[0], c = e.createElement("script");
-                c.type = "text/javascript", c.async = !0, c.src = "https://djtflbt20bdde.cloudfront.net/",
-                    r.parentNode.insertBefore(c, r)
-            }(document, window.HSCW || {}, window.HS || {}
-            );
-
-        }
+                };
+            var r = e.getElementsByTagName("script")[0], c = e.createElement("script");
+            c.type = "text/javascript", c.async = !0, c.src = "https://djtflbt20bdde.cloudfront.net/",
+                r.parentNode.insertBefore(c, r)
+        }(document, window.HSCW || {}, window.HS || {}
+        );
     }
 })( jQuery );
