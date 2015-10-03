@@ -177,8 +177,8 @@ class Wp_Dashboard_Beacon_Admin {
                 'Set your beacon functions',
                 'hsb_beacon_options',
                 'options' => array(
-                    'docs' => 'Docs search',
                     'contact' => 'Contact form',
+                    'docs' => 'Docs search',
                     'contact_docs' => 'Contact form and docs search'
                     ),
             )
@@ -207,10 +207,10 @@ class Wp_Dashboard_Beacon_Admin {
                 'Select an icon to be used in your beacon',
                 'hsb_beacon_icon',
                 'options' => array(
+                    'question' => 'Question',
                     'beacon' => 'Beacon',
                     'buoy' => 'Buoy',
                     'message' => 'Message',
-                    'question' => 'Question',
                     'search' => 'Search'
                     ),
             )

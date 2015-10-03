@@ -34,6 +34,18 @@
     var formId = hsb_settings.formId;
     var beaconOptions = hsb_settings.beaconOptions;
     var selectedIcon = hsb_settings.icon;
+    console.log(selectedIcon);
+    if(selectedIcon === '') {
+        if(beaconOptions === 'contact') {
+            selectedIcon = 'message';
+        }
+        if(beaconOptions === 'docs') {
+            selectedIcon = 'search';
+        }
+        if(beaconOptions === 'contact_docs') {
+            selectedIcon = 'beacon'
+        }
+    }
     if(beaconOptions === 'docs' || beaconOptions === 'contact_docs') { var enableDocs = 1; } else { var enableDocs = 0; }
     if(beaconOptions === 'contact' || beaconOptions === 'contact_docs') { var enableContact = 1; } else { var enableContact = 0; }
     if(hsb_settings.subDomain != '') {
