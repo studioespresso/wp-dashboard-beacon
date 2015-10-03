@@ -34,7 +34,11 @@
     var formId = hsb_settings.formId;
     var beaconOptions = hsb_settings.beaconOptions;
     var selectedIcon = hsb_settings.icon;
-    console.log(selectedIcon);
+    var formInstructions = hsb_settings.formInstructions;
+
+    if(hsb_settings.allowAttachments === '1') { var allowedAttachments = true; } else { var allowedAttachments = false; }
+    if(hsb_settings.credits === '1') { var poweredBy = false; } else { var poweredBy = true; }
+
     if(selectedIcon === '') {
         if(beaconOptions === 'contact') {
             selectedIcon = 'message';
@@ -69,34 +73,40 @@
                 o.config = {
                     docs: {enabled: enableDocs, baseUrl: subDomain},
                     contact: {enabled: enableContact, formId: formId},
-                    icon: selectedIcon,
-                    color: '#cacaca',
-                    translation: {
-                        'searchLabel': hsb_settings.strings.searchLabel,
-                        'searchErrorLabel': hsb_settings.strings.searchErrorLabel,
-                        'noResultsLabel': hsb_settings.strings.noResultsLabel,
-                        'contactLabel': hsb_settings.strings.contactLabel,
-                        'attachFileLabel': hsb_settings.strings.attachFileLabel,
-                        'attachFileError': hsb_settings.strings.attachFileError,
-                        'nameLabel': hsb_settings.strings.nameLabel,
-                        'nameError': hsb_settings.strings.nameError,
-                        'emailLabel': hsb_settings.strings.emailLabel,
-                        'emailError': hsb_settings.strings.emailError,
-                        'topicLabel': hsb_settings.strings.topicLabel,
-                        'topicError': hsb_settings.strings.topicError,
-                        'subjectLabel': hsb_settings.strings.subjectLabel,
-                        'subjectError': hsb_settings.strings.subjectError,
-                        'messageLabel': hsb_settings.strings.messageLabel,
-                        'messageError': hsb_settings.strings.messageError,
-                        'sendLabel': hsb_settings.strings.sendLabel,
-                        'contactSuccessLabel': hsb_settings.strings.contactSuccessLabel,
-                        'contactSuccessDescription': hsb_settings.strings.contactSuccessDescription,
-                    },
                 };
             var r = e.getElementsByTagName("script")[0], c = e.createElement("script");
             c.type = "text/javascript", c.async = !0, c.src = "https://djtflbt20bdde.cloudfront.net/",
                 r.parentNode.insertBefore(c, r)
         }(document, window.HSCW || {}, window.HS || {}
         );
+        HS.beacon.config({
+            modal: false,
+            icon: selectedIcon,
+            color: '#8A221F',
+            attachment: allowedAttachments,
+            instructions: formInstructions,
+            poweredBy: false,
+            translation: {
+                'searchLabel': hsb_settings.strings.searchLabel,
+                'searchErrorLabel': hsb_settings.strings.searchErrorLabel,
+                'noResultsLabel': hsb_settings.strings.noResultsLabel,
+                'contactLabel': hsb_settings.strings.contactLabel,
+                'attachFileLabel': hsb_settings.strings.attachFileLabel,
+                'attachFileError': hsb_settings.strings.attachFileError,
+                'nameLabel': hsb_settings.strings.nameLabel,
+                'nameError': hsb_settings.strings.nameError,
+                'emailLabel': hsb_settings.strings.emailLabel,
+                'emailError': hsb_settings.strings.emailError,
+                'topicLabel': hsb_settings.strings.topicLabel,
+                'topicError': hsb_settings.strings.topicError,
+                'subjectLabel': hsb_settings.strings.subjectLabel,
+                'subjectError': hsb_settings.strings.subjectError,
+                'messageLabel': hsb_settings.strings.messageLabel,
+                'messageError': hsb_settings.strings.messageError,
+                'sendLabel': hsb_settings.strings.sendLabel,
+                'contactSuccessLabel': hsb_settings.strings.contactSuccessLabel,
+                'contactSuccessDescription': hsb_settings.strings.contactSuccessDescription,
+            },
+        });
     }
 })( jQuery );

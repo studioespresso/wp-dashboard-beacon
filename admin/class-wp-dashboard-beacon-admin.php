@@ -103,7 +103,7 @@ class Wp_Dashboard_Beacon_Admin {
             'subDomain' => get_option('hsb_helpscout_subdomain'),
             'beaconOptions' => get_option('hsb_beacon_options'),
             'icon' => get_option('hsb_beacon_icon'),
-            'credits' => get_option('hsb_show_credits'),
+            'credits' => get_option('hsb_hide_credits'),
             'formInstructions' => get_option('hsb_form_instructions'),
             'allowAttachments' => get_option('hsb_allow_attachments'),
             'strings' => array(
@@ -219,7 +219,37 @@ class Wp_Dashboard_Beacon_Admin {
                     ),
             )
         );
+
+        // Allow attachments
+        add_settings_field(
+            'hsb_allow_attachments',                                      // ID used to identify the field throughout the theme
+            'Allow attachments',                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
+            'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
+                '',
+                'hsb_allow_attachments'
+                )
+        );
+
+        // Hide powered by Help Scout
+        add_settings_field(
+            'hsb_hide_credits',                                      // ID used to identify the field throughout the theme
+            'Hide \'Powered by Help Scout\'',                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
+            'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
+                '',
+                'hsb_hide_credits'
+                )
+        );
+
+
         register_setting( 'hsb_beacon_display_settings', 'hsb_beacon_icon' );
+        register_setting( 'hsb_beacon_display_settings', 'hsb_allow_attachments' );
+        register_setting( 'hsb_beacon_display_settings', 'hsb_hide_credits' );
 
 
     }
