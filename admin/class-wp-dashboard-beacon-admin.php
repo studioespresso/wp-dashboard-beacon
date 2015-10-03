@@ -207,6 +207,7 @@ class Wp_Dashboard_Beacon_Admin {
                 'Select an icon to be used in your beacon',
                 'hsb_beacon_icon',
                 'options' => array(
+                    '' => 'Select an icon',
                     'question' => 'Question',
                     'beacon' => 'Beacon',
                     'buoy' => 'Buoy',
