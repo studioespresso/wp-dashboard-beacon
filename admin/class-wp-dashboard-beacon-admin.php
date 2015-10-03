@@ -213,11 +213,10 @@ class Wp_Dashboard_Beacon_Admin {
     }
 
     function hsb_select_callback($args) {
-        $options = get_option( $args[1] );
         $html = '<select id="' . $args[1] . '" name="' . $args[1] . '">';
-        $html .= '<option value="contact"' . selected( $options, 'contact', false) . '>Contact Form</option>';
-        $html .= '<option value="docs"' . selected( $options, 'docs', false) . '>Docs search</option>';
-        $html .= '<option value="contact_docs"' . selected( $options, 'contact_docs', false) . '>Contact form and docs search</option>';
+        foreach ($args['options'] as $key => $value) {
+            $html .= '<option value="' . $key . '"' . selected( get_option($args[1]), $key, false) . '>' . $value . '</option>';
+        }
         $html .= '</select>';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
         echo $html;
