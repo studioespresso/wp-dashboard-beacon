@@ -279,6 +279,37 @@ class Wp_Dashboard_Beacon_Admin {
         register_setting( 'hsb_beacon_display_settings', 'hsb_allow_attachments' );
         register_setting( 'hsb_beacon_display_settings', 'hsb_hide_credits' );
 
+        // Permissions, displayed on tab 3
+        add_settings_section(
+            'hsb_permissions_settings',                                     // ID used to identify this section and with which to register options
+            __('Beacon permissions and visibility', 'wp-dashboard-beacon'),    // Title to be displayed on the administration page
+            array( $this, 'hsb_permissions_settings_description'),          // Callback used to render the description of the section
+            'hsb_permissions_settings'                                         // Page on which to add this section of options
+        );
+
+        // Minimum user role
+        add_settings_field(
+            'hsb_minumum_user_role',                                      // ID used to identify the field throughout the theme
+            'User role',                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_wp_user_roles_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_permissions_settings',                                         // The page on which this option will be displayed
+            'hsb_permissions_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
+                'Enable beacon for user who\'s role is at least the selected role' ,
+                'hsb_minumum_user_role',
+                'options' => array(
+                    '' => 'Select an icon',
+                    'question' => 'Question',
+                    'beacon' => 'Beacon',
+                    'buoy' => 'Buoy',
+                    'message' => 'Message',
+                    'search' => 'Search'
+                )
+            )
+        );
+        register_setting( 'hsb_permissions_settings', 'hsb_minumum_user_role' );
+
+
     }
 
     function hsb_account_settings_description($args) {
@@ -329,6 +360,7 @@ class Wp_Dashboard_Beacon_Admin {
                 <a href="?page=dashboard_beacon&tab=hsb_account_settings" class="nav-tab <?php echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
                 <a href="?page=dashboard_beacon&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?> </a>
             </h2>
+                <a href="?page=dashboard_beacon&tab=hsb_permissions_settings" class="nav-tab <?php echo $active_tab == 'hsb_permissions_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Permissions','wp-dashboard-beacon'); ?> </a>            </h2>
             <form method="post" action="options.php">
                 <?php
                 if( $active_tab == 'hsb_account_settings' ) {
@@ -337,6 +369,9 @@ class Wp_Dashboard_Beacon_Admin {
                 } elseif( $active_tab =='hsb_beacon_display_settings' ) {
                     settings_fields( 'hsb_beacon_display_settings' );
                     do_settings_sections( 'hsb_beacon_display_settings' );
+                } elseif( $active_tab =='hsb_permissions_settings' ) {
+                    settings_fields( 'hsb_permissions_settings' );
+                    do_settings_sections( 'hsb_permissions_settings' );
                 } // end if/else
 
                 submit_button();
