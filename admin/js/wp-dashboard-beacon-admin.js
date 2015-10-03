@@ -2,37 +2,38 @@
 	'use strict';
 
 	/**
-	 * All of the code for your admin-specific JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note that this assume you're going to use jQuery, so it prepares
-	 * the $ function reference to be used within the scope of this
-	 * function.
-	 *
-	 * From here, you're able to define handlers for when the DOM is
-	 * ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * Or when the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and so on.
-	 *
-	 * Remember that ideally, we should not attach any more than a single DOM-ready or window-load handler
-	 * for any particular page. Though other scripts in WordPress core, other plugins, and other themes may
-	 * be doing this, we should try to minimize doing that in our own work.
-	 */
+        * All of the code for your admin-specific JavaScript source
+        * should reside in this file.
+        *
+        * Note that this assume you're going to use jQuery, so it prepares
+        * the $ function reference to be used within the scope of this
+        * function.
+        *
+        * From here, you're able to define handlers for when the DOM is
+        * ready:
+        *
+        * $(function() {
+        *
+        * });
+        *
+        * Or when the window is loaded:
+        *
+        * $( window ).load(function() {
+        *
+        * });
+        *
+        * ...and so on.
+        *
+        * Remember that ideally, we should not attach any more than a single DOM-ready or window-load handler
+        * for any particular page. Though other scripts in WordPress core, other plugins, and other themes may
+        * be doing this, we should try to minimize doing that in our own work.
+    */
 
     // beacon, buoy, message, question or search.
 
     var formId = hsb_settings.formId;
     var beaconOptions = hsb_settings.beaconOptions;
+    var selectedIcon = hsb_settings.icon;
     if(beaconOptions === 'docs' || beaconOptions === 'contact_docs') { var enableDocs = 1; } else { var enableDocs = 0; }
     if(beaconOptions === 'contact' || beaconOptions === 'contact_docs') { var enableContact = 1; } else { var enableContact = 0; }
     if(hsb_settings.subDomain != '') {
@@ -41,6 +42,8 @@
         enableDocs = 0;
         subDomain = '';
     }
+
+
     if (formId) {
         !function (e, o, n) {
             window.HSCW = o, window.HS = n, n.beacon = n.beacon || {};
@@ -54,6 +57,7 @@
                 o.config = {
                     docs: {enabled: enableDocs, baseUrl: subDomain},
                     contact: {enabled: enableContact, formId: formId},
+                    icon: selectedIcon,
                     color: '#cacaca',
                     translation: {
                         'searchLabel': hsb_settings.strings.searchLabel,

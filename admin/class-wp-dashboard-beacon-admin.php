@@ -102,6 +102,7 @@ class Wp_Dashboard_Beacon_Admin {
             'formId' => get_option('hsb_helpscout_form_id'),
             'subDomain' => get_option('hsb_helpscout_subdomain'),
             'beaconOptions' => get_option('hsb_beacon_options'),
+            'icon' => get_option('hsb_beacon_icon'),
             'strings' => array(
                 'searchLabel' => __('What can we help you with?', 'wp-dashboard-beacon'),
                 'searchErrorLabel' => __('Your search timed out. Please double-check your internet connection and try again.', 'wp-dashboard-beacon'),
@@ -139,14 +140,6 @@ class Wp_Dashboard_Beacon_Admin {
             'hsb_account_settings'                                         // Page on which to add this section of options
         );
 
-        // Display settings, displayed on tab 2
-        add_settings_section(
-            'hsb_beacon_display_settings',                                     // ID used to identify this section and with which to register options
-            __('Customize your beacon', 'wp-dashboard-beacon'),    // Title to be displayed on the administration page
-            array( $this, 'hsb_beacon_settings_description'),          // Callback used to render the description of the section
-            'hsb_beacon_display_settings'                                         // Page on which to add this section of options
-        );
-
         // Subdomain field
         add_settings_field(
             'hsb_helpscout_subdomain',                                      // ID used to identify the field throughout the theme
@@ -182,13 +175,48 @@ class Wp_Dashboard_Beacon_Admin {
             'hsb_account_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
                 'Set your beacon functions',
-                'hsb_beacon_options'
+                'hsb_beacon_options',
+                'options' => array(
+                    'docs' => 'Docs search',
+                    'contact' => 'Contact form',
+                    'contact_docs' => 'Contact form and docs search'
+                    ),
             )
         );
 
         register_setting( 'hsb_account_settings', 'hsb_helpscout_subdomain' );
         register_setting( 'hsb_account_settings', 'hsb_helpscout_form_id' );
         register_setting( 'hsb_account_settings', 'hsb_beacon_options' );
+
+        // Display settings, displayed on tab 2
+        add_settings_section(
+            'hsb_beacon_display_settings',                                     // ID used to identify this section and with which to register options
+            __('Customize your beacon', 'wp-dashboard-beacon'),    // Title to be displayed on the administration page
+            array( $this, 'hsb_beacon_settings_description'),          // Callback used to render the description of the section
+            'hsb_beacon_display_settings'                                         // Page on which to add this section of options
+        );
+
+        // Beacon icon
+        add_settings_field(
+            'hsb_beacon_icon',                                      // ID used to identify the field throughout the theme
+            'Beacon Icon',                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_select_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
+            'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
+                'Select an icon to be used in your beacon',
+                'hsb_beacon_icon',
+                'options' => array(
+                    'beacon' => 'Beacon',
+                    'buoy' => 'Buoy',
+                    'message' => 'Message',
+                    'question' => 'Question',
+                    'search' => 'Search'
+                    ),
+            )
+        );
+        register_setting( 'hsb_beacon_display_settings', 'hsb_beacon_icon' );
+
 
     }
 
@@ -197,7 +225,7 @@ class Wp_Dashboard_Beacon_Admin {
     }
 
     function hsb_beacon_settings_description($args) {
-        echo '<p>Set up your beacon</p>';
+        echo '<p>Connect your dashboard account</p>';
     }
 
     function hsb_textfield_callback($args) {
@@ -230,10 +258,10 @@ class Wp_Dashboard_Beacon_Admin {
             <?php settings_errors(); ?>
             <?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'hsb_account_settings'; // end if?>
 
-<!--            <h2 class="nav-tab-wrapper">-->
-<!--                <a href="?page=dashboard_beacon&tab=hsb_account_settings" class="nav-tab --><?php //echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?><!--">--><?php //echo __('Setup','wp-dashboard-beacon'); ?><!--</a>-->
-<!--                <a href="?page=dashboard_beacon&tab=hsb_beacon_display_settings" class="nav-tab --><?php //echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?><!--">--><?php //echo __('Display settings','wp-dashboard-beacon'); ?><!-- </a>-->
-<!--            </h2>-->
+            <h2 class="nav-tab-wrapper">
+                <a href="?page=dashboard_beacon&tab=hsb_account_settings" class="nav-tab <?php echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
+                <a href="?page=dashboard_beacon&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?> </a>
+            </h2>
             <form method="post" action="options.php">
                 <?php
                 if( $active_tab == 'hsb_account_settings' ) {
