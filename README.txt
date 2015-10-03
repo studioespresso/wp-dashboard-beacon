@@ -2,7 +2,7 @@
 Contributors: janhenckens
 Donate link: https://onedge.be/donate
 Tags: dashboard
-Requires at least: 3.0.1
+Requires at least: 3.5.0
 Tested up to: 4.3.1
 Stable tag: 1.0
 License: GPLv2 or later
