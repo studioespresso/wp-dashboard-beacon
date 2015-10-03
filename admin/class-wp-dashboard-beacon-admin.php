@@ -104,6 +104,7 @@ class Wp_Dashboard_Beacon_Admin {
                 'subDomain' => get_option('hsb_helpscout_subdomain'),
                 'beaconOptions' => get_option('hsb_beacon_options'),
                 'icon' => get_option('hsb_beacon_icon'),
+                'colour' => get_option('hsb_beacon_colour'),
                 'credits' => get_option('hsb_hide_credits'),
                 'formInstructions' => get_option('hsb_form_instructions'),
                 'allowAttachments' => get_option('hsb_allow_attachments'),
@@ -133,9 +134,18 @@ class Wp_Dashboard_Beacon_Admin {
 
 	}
 
+    function hsb_enqueue_colourpicker( $hook ) {
+        if ( 'tools_page_dashboard_beacon' != $hook ) {
+            return;
+        }
+        // Add the color picker css file
+        wp_enqueue_style( 'wp-color-picker' );
+        // Include our custom jQuery file with WordPress Color Picker dependency
+        wp_enqueue_script( 'custom-script-handle', plugins_url( 'js/wp-dashboard-beacon-colourpicker.js', __FILE__ ), array( 'wp-color-picker' ), false, true ); 
+}
+
     /** Settings Initialization **/
     function hsb_register_settings() {
-
 
         // Account settings, displayed on tab 1
         add_settings_section(
@@ -185,7 +195,7 @@ class Wp_Dashboard_Beacon_Admin {
                     'contact' => 'Contact form',
                     'docs' => 'Docs search',
                     'contact_docs' => 'Contact form and docs search'
-                    ),
+                ),
             )
         );
 
@@ -218,7 +228,23 @@ class Wp_Dashboard_Beacon_Admin {
                     'buoy' => 'Buoy',
                     'message' => 'Message',
                     'search' => 'Search'
-                    ),
+                )
+            )
+        );
+
+        // Beacon colour
+        add_settings_field(
+            'hsb_beacon_colour',                                      // ID used to identify the field throughout the theme
+            'Beacon colour',                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_colourpicker_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
+            'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
+                'Pick a colour to be used for the beacon icon and text labels',
+                'hsb_beacon_colour',
+                'options' => array(
+                    'default' => '#0C5E99'
+                )
             )
         );
 
@@ -232,7 +258,7 @@ class Wp_Dashboard_Beacon_Admin {
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
                 '',
                 'hsb_allow_attachments'
-                )
+            )
         );
 
         // Hide powered by Help Scout
@@ -245,14 +271,13 @@ class Wp_Dashboard_Beacon_Admin {
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
                 '',
                 'hsb_hide_credits'
-                )
+            )
         );
 
-
         register_setting( 'hsb_beacon_display_settings', 'hsb_beacon_icon' );
+        register_setting( 'hsb_beacon_display_settings', 'hsb_beacon_colour' );
         register_setting( 'hsb_beacon_display_settings', 'hsb_allow_attachments' );
         register_setting( 'hsb_beacon_display_settings', 'hsb_hide_credits' );
-
 
     }
 
@@ -286,6 +311,12 @@ class Wp_Dashboard_Beacon_Admin {
         echo $html;
     }
 
+    public function hsb_colourpicker_callback($args) {
+        $val = ( null !== get_option('hsb_beacon_colour')  ) ? get_option('hsb_beacon_colour') : $args['options']['default'];
+        $html = '<input type="text" name="' . $args[1] .'" value="' . $val . '" class="hsb_beacon_colour" >';
+        $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
+        echo $html;
+    }
 
     public function hsb_add_settings_page_callback() {
         ?>

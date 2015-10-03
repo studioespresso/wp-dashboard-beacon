@@ -1,0 +1,1 @@
+(function( $ ) {$(function() {$('.hsb_beacon_colour').wpColorPicker();});})( jQuery );
