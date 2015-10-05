@@ -96,6 +96,9 @@ class Wp_Dashboard_Beacon_Admin {
         * between the defined hooks and the functions defined in this
         * class.
         */
+        $user = new WP_User( get_current_user_id() );
+        $user->roles['0'];
+
         $formId = get_option('hsb_helpscout_form_id');
         if($formId) {
             wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-dashboard-beacon-beacon.js', array( 'jquery' ), $this->version, false );
@@ -289,25 +292,18 @@ class Wp_Dashboard_Beacon_Admin {
 
         // Minimum user role
         add_settings_field(
-            'hsb_minumum_user_role',                                      // ID used to identify the field throughout the theme
+            'hsb_allowed_user_roles',                                      // ID used to identify the field throughout the theme
             'User role',                                                   // The label to the left of the option interface element
             array( $this, 'hsb_wp_user_roles_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_permissions_settings',                                         // The page on which this option will be displayed
             'hsb_permissions_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
                 'Enable beacon for user who\'s role is at least the selected role' ,
-                'hsb_minumum_user_role',
-                'options' => array(
-                    '' => 'Select an icon',
-                    'question' => 'Question',
-                    'beacon' => 'Beacon',
-                    'buoy' => 'Buoy',
-                    'message' => 'Message',
-                    'search' => 'Search'
-                )
+                'hsb_allowed_user_roles',
+                'options' => $this->hsb_get_roles()
             )
         );
-        register_setting( 'hsb_permissions_settings', 'hsb_minumum_user_role' );
+        register_setting( 'hsb_permissions_settings', 'hsb_allowed_user_roles' );
 
 
     }
@@ -316,9 +312,8 @@ class Wp_Dashboard_Beacon_Admin {
         echo '<p>Connect your dashboard account</p>';
     }
 
-    function hsb_beacon_settings_description($args) {
-        echo '<p>Connect your dashboard account</p>';
-    }
+    function hsb_beacon_settings_description($args) {}
+    function hsb_permissions_settings_description($args) {}
 
     function hsb_textfield_callback($args) {
         $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '" value="' . get_option($args[1]) .'">';
@@ -349,6 +344,37 @@ class Wp_Dashboard_Beacon_Admin {
         echo $html;
     }
 
+    public function hsb_wp_user_roles_callback($args) {
+        $html = '';
+        $val = get_option('hsb_allowed_user_roles');
+        $options = $val[1];
+        $i = 1;
+        foreach ($args['options'] as $key => $option) {
+            $checked = '';
+            $label = $option['label'];
+            $option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($option['name']));
+
+            $id = $args[1] . '-' . '' . '-'. $option;
+            $name = $args[1] . '[' . $i . '][' . $option .']';
+            $checked = checked($options[$option], 1, false);
+
+            $html .= '<input id="' . esc_attr( $id ) . '" type="checkbox" value="1" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label><br />';
+        }
+        $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
+        echo $html;
+    }
+
+    public function hsb_get_roles() {
+        $roles = array();
+        $i = 0;
+        foreach (get_editable_roles() as $role_name => $role_info) {
+            $roles[$i]['name'] = $role_name;
+            $roles[$i]['label'] = $role_info['name'];
+            $i++;
+        }
+        return $roles;
+    }
+
     public function hsb_add_settings_page_callback() {
         ?>
         <div class="wrap">
@@ -359,7 +385,6 @@ class Wp_Dashboard_Beacon_Admin {
             <h2 class="nav-tab-wrapper">
                 <a href="?page=dashboard_beacon&tab=hsb_account_settings" class="nav-tab <?php echo $active_tab == 'hsb_account_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
                 <a href="?page=dashboard_beacon&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?> </a>
-            </h2>
                 <a href="?page=dashboard_beacon&tab=hsb_permissions_settings" class="nav-tab <?php echo $active_tab == 'hsb_permissions_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Permissions','wp-dashboard-beacon'); ?> </a>            </h2>
             <form method="post" action="options.php">
                 <?php
