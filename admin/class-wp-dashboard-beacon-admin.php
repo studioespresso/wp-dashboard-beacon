@@ -99,41 +99,43 @@ class Wp_Dashboard_Beacon_Admin {
         $user = new WP_User( get_current_user_id() );
         $userRole = $user->roles['0'];
         $allowedRoles = get_option('hsb_allowed_user_roles');
-        if(array_key_exists($userRole, $allowedRoles[1])) {
-            $formId = get_option('hsb_helpscout_form_id');
-            if($formId) {
-                wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-dashboard-beacon-beacon.js', array( 'jquery' ), $this->version, false );
-                wp_localize_script( $this->plugin_name, 'hsb_settings', array(
-                    'formId' => get_option('hsb_helpscout_form_id'),
-                    'subDomain' => get_option('hsb_helpscout_subdomain'),
-                    'beaconOptions' => get_option('hsb_beacon_options'),
-                    'icon' => get_option('hsb_beacon_icon'),
-                    'colour' => get_option('hsb_beacon_colour'),
-                    'credits' => get_option('hsb_hide_credits'),
-                    'formInstructions' => get_option('hsb_form_instructions'),
-                    'allowAttachments' => get_option('hsb_allow_attachments'),
-                    'strings' => array(
-                        'searchLabel' => __('What can we help you with?', 'wp-dashboard-beacon'),
-                        'searchErrorLabel' => __('Your search timed out. Please double-check your internet connection and try again.', 'wp-dashboard-beacon'),
-                        'noResultsLabel' => __('No results found for', 'wp-dashboard-beacon'),
-                        'contactLabel' => __('Send a Message', 'wp-dashboard-beacon'),
-                        'attachFileLabel' => __('Attach a file', 'wp-dashboard-beacon'),
-                        'attachFileError' => __('The maximum file size is 10mb', 'wp-dashboard-beacon'),
-                        'nameLabel' => __('Your Name', 'wp-dashboard-beacon'),
-                        'nameError' => __('Please enter your name', 'wp-dashboard-beacon'),
-                        'emailLabel' => __('Email address', 'wp-dashboard-beacon'),
-                        'emailError' => __('Please enter a valid email address', 'wp-dashboard-beacon'),
-                        'topicLabel' => __('Select a topic', 'wp-dashboard-beacon'),
-                        'topicError' => __('Please select a topic from the list', 'wp-dashboard-beacon'),
-                        'subjectLabel' => __('Subject', 'wp-dashboard-beacon'),
-                        'subjectError' => __('Please enter a subject', 'wp-dashboard-beacon'),
-                        'messageLabel' => __('How can we help you?', 'wp-dashboard-beacon'),
-                        'messageError' => __('Please enter a message', 'wp-dashboard-beacon'),
-                        'sendLabel' => __('Send', 'wp-dashboard-beacon'),
-                        'contactSuccessLabel' => __('Message sent!', 'wp-dashboard-beacon'),
-                        'contactSuccessDescription' => __('Thanks for reaching out! Someone from our team will get back to you soon.', 'wp-dashboard-beacon')
-                    )
-                ));
+        if($allowedRoles != "") {
+            if(array_key_exists($userRole, $allowedRoles)) {
+                $formId = get_option('hsb_helpscout_form_id');
+                if($formId) {
+                    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-dashboard-beacon-beacon.js', array( 'jquery' ), $this->version, false );
+                    wp_localize_script( $this->plugin_name, 'hsb_settings', array(
+                        'formId' => get_option('hsb_helpscout_form_id'),
+                        'subDomain' => get_option('hsb_helpscout_subdomain'),
+                        'beaconOptions' => get_option('hsb_beacon_options'),
+                        'icon' => get_option('hsb_beacon_icon'),
+                        'colour' => get_option('hsb_beacon_colour'),
+                        'credits' => get_option('hsb_hide_credits'),
+                        'formInstructions' => get_option('hsb_form_instructions'),
+                        'allowAttachments' => get_option('hsb_allow_attachments'),
+                        'strings' => array(
+                            'searchLabel' => __('What can we help you with?', 'wp-dashboard-beacon'),
+                            'searchErrorLabel' => __('Your search timed out. Please double-check your internet connection and try again.', 'wp-dashboard-beacon'),
+                            'noResultsLabel' => __('No results found for', 'wp-dashboard-beacon'),
+                            'contactLabel' => __('Send a Message', 'wp-dashboard-beacon'),
+                            'attachFileLabel' => __('Attach a file', 'wp-dashboard-beacon'),
+                            'attachFileError' => __('The maximum file size is 10mb', 'wp-dashboard-beacon'),
+                            'nameLabel' => __('Your Name', 'wp-dashboard-beacon'),
+                            'nameError' => __('Please enter your name', 'wp-dashboard-beacon'),
+                            'emailLabel' => __('Email address', 'wp-dashboard-beacon'),
+                            'emailError' => __('Please enter a valid email address', 'wp-dashboard-beacon'),
+                            'topicLabel' => __('Select a topic', 'wp-dashboard-beacon'),
+                            'topicError' => __('Please select a topic from the list', 'wp-dashboard-beacon'),
+                            'subjectLabel' => __('Subject', 'wp-dashboard-beacon'),
+                            'subjectError' => __('Please enter a subject', 'wp-dashboard-beacon'),
+                            'messageLabel' => __('How can we help you?', 'wp-dashboard-beacon'),
+                            'messageError' => __('Please enter a message', 'wp-dashboard-beacon'),
+                            'sendLabel' => __('Send', 'wp-dashboard-beacon'),
+                            'contactSuccessLabel' => __('Message sent!', 'wp-dashboard-beacon'),
+                            'contactSuccessDescription' => __('Thanks for reaching out! Someone from our team will get back to you soon.', 'wp-dashboard-beacon')
+                        )
+                    ));
+               }
            }
        }
 
@@ -349,17 +351,18 @@ class Wp_Dashboard_Beacon_Admin {
     public function hsb_wp_user_roles_callback($args) {
         $html = '';
         $val = get_option($args[1]);
-        $options = $val[1];
-        $i = 1;
+        $options = $val;
+
         foreach ($args['options'] as $key => $option) {
             $checked = '';
             $label = $option['label'];
             $option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($option['name']));
 
             $id = $args[1] . '-' . '' . '-'. $option;
-            $name = $args[1] . '[' . $i . '][' . $option .']';
-            $checked = checked($options[$option], 1, false);
-
+            $name = $args[1] . '[' . $option .']';
+            if($options) {
+                $checked = checked($options[$option], 1, false);
+            }
             $html .= '<input id="' . esc_attr( $id ) . '" type="checkbox" value="1" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label><br />';
         }
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
