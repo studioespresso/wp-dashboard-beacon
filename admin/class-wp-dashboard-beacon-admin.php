@@ -346,7 +346,7 @@ class Wp_Dashboard_Beacon_Admin {
 
     public function hsb_wp_user_roles_callback($args) {
         $html = '';
-        $val = get_option('hsb_allowed_user_roles');
+        $val = get_option($args[1]);
         $options = $val[1];
         $i = 1;
         foreach ($args['options'] as $key => $option) {
