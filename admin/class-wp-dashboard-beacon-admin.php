@@ -170,7 +170,7 @@ class Wp_Dashboard_Beacon_Admin {
             'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_account_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
-                'Enter the subdomain of your Helpscout docs account',
+                __('Enter the subdomain of your Helpscout docs account', 'wp-dashboard-beacon'),
                 'hsb_helpscout_subdomain'
             )
         );
@@ -183,7 +183,7 @@ class Wp_Dashboard_Beacon_Admin {
             'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_account_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
-                'Enter the form ID for your beacon',
+                __('Enter the form ID for your beacon', 'wp-dashboard-beacon'),
                 'hsb_helpscout_form_id'
             )
         );
@@ -191,17 +191,17 @@ class Wp_Dashboard_Beacon_Admin {
         // Beacon options
         add_settings_field(
             'hsb_beacon_options',                                      // ID used to identify the field throughout the theme
-            'Beacon options',                                                   // The label to the left of the option interface element
+            __('Beacon options', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
             array( $this, 'hsb_select_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_account_settings',                                         // The page on which this option will be displayed
             'hsb_account_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
-                'Set your beacon functions',
+                __('Set your beacon functions', 'wp-dashboard-beacon'),
                 'hsb_beacon_options',
                 'options' => array(
-                    'contact' => 'Contact form',
-                    'docs' => 'Docs search',
-                    'contact_docs' => 'Contact form and docs search'
+                    'contact' => __('Contact form','wp-dashboard-beacon'),
+                    'docs' => __('Docs search', 'wp-dashboard-beacon'),
+                    'contact_docs' => __('Contact form and docs search', 'wp-dashboard-beacon')
                 ),
             )
         );
@@ -221,20 +221,20 @@ class Wp_Dashboard_Beacon_Admin {
         // Beacon icon
         add_settings_field(
             'hsb_beacon_icon',                                      // ID used to identify the field throughout the theme
-            'Beacon Icon',                                                   // The label to the left of the option interface element
+            __('Beacon Icon', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
             array( $this, 'hsb_select_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
-                'Select an icon to be used in your beacon',
+                __('Select an icon to be used in your beacon', 'wp-dashboard-beacon'),
                 'hsb_beacon_icon',
                 'options' => array(
                     '' => 'Select an icon',
-                    'question' => 'Question',
-                    'beacon' => 'Beacon',
-                    'buoy' => 'Buoy',
-                    'message' => 'Message',
-                    'search' => 'Search'
+                    'question' => __('Question', 'wp-dashboard-beacon'),
+                    'beacon' => __('Beacon', 'wp-dashboard-beacon'),
+                    'buoy' => __('Buoy', 'wp-dashboard-beacon'),
+                    'message' => __('Message', 'wp-dashboard-beacon'),
+                    'search' => __('Search', 'wp-dashboard-beacon')
                 )
             )
         );
@@ -242,12 +242,12 @@ class Wp_Dashboard_Beacon_Admin {
         // Beacon colour
         add_settings_field(
             'hsb_beacon_colour',                                      // ID used to identify the field throughout the theme
-            'Beacon colour',                                                   // The label to the left of the option interface element
+            __('Beacon colour', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
             array( $this, 'hsb_colourpicker_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
-                'Pick a colour to be used for the beacon icon and text labels',
+                __('Pick a colour to be used for the beacon icon and text labels', 'wp-dashboard-beacon'),
                 'hsb_beacon_colour',
                 'options' => array(
                     'default' => '#0C5E99'
@@ -258,7 +258,7 @@ class Wp_Dashboard_Beacon_Admin {
         // Allow attachments
         add_settings_field(
             'hsb_allow_attachments',                                      // ID used to identify the field throughout the theme
-            'Allow attachments',                                                   // The label to the left of the option interface element
+            __('Allow attachments', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
             array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
@@ -271,7 +271,7 @@ class Wp_Dashboard_Beacon_Admin {
         // Hide powered by Help Scout
         add_settings_field(
             'hsb_hide_credits',                                      // ID used to identify the field throughout the theme
-            'Hide \'Powered by Help Scout\'',                                                   // The label to the left of the option interface element
+            __('Hide \'Powered by Help Scout\'', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
             array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
@@ -297,12 +297,12 @@ class Wp_Dashboard_Beacon_Admin {
         // Minimum user role
         add_settings_field(
             'hsb_allowed_user_roles',                                      // ID used to identify the field throughout the theme
-            'User role',                                                   // The label to the left of the option interface element
+            __('User role', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
             array( $this, 'hsb_wp_user_roles_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_permissions_settings',                                         // The page on which this option will be displayed
             'hsb_permissions_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
-                'Enable beacon for user who\'s role is at least the selected role' ,
+                __('Enable beacon for user who\'s role is at least the selected role', 'wp-dashboard-beacon') ,
                 'hsb_allowed_user_roles',
                 'options' => $this->hsb_get_roles()
             )
