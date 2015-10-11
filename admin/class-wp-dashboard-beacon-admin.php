@@ -162,19 +162,6 @@ class Wp_Dashboard_Beacon_Admin {
             'hsb_account_settings'                                         // Page on which to add this section of options
         );
 
-        // Subdomain field
-        add_settings_field(
-            'hsb_helpscout_subdomain',                                      // ID used to identify the field throughout the theme
-            'helpscout subdomain',                                                   // The label to the left of the option interface element
-            array( $this, 'hsb_textfield_callback'),              // The name of the function responsible for rendering the option interface
-            'hsb_account_settings',                                         // The page on which this option will be displayed
-            'hsb_account_settings',                                     // The name of the section to which this field belongs
-            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
-                __('Enter the subdomain of your Helpscout docs account', 'wp-dashboard-beacon'),
-                'hsb_helpscout_subdomain'
-            )
-        );
-
         // Form ID field
         add_settings_field(
             'hsb_helpscout_form_id',                                      // ID used to identify the field throughout the theme
@@ -185,6 +172,19 @@ class Wp_Dashboard_Beacon_Admin {
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
                 __('Enter the form ID for your beacon', 'wp-dashboard-beacon'),
                 'hsb_helpscout_form_id'
+            )
+        );
+
+        // Subdomain field
+        add_settings_field(
+            'hsb_helpscout_subdomain',                                      // ID used to identify the field throughout the theme
+            __('Help Scout subdomain', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_textfield_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_account_settings',                                         // The page on which this option will be displayed
+            'hsb_account_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
+                __('Enter the subdomain of your Helpscout docs account', 'wp-dashboard-beacon'),
+                'hsb_helpscout_subdomain'
             )
         );
 
@@ -313,7 +313,7 @@ class Wp_Dashboard_Beacon_Admin {
     }
 
     function hsb_account_settings_description($args) {
-        echo '<p>Connect your dashboard account</p>';
+        echo '<p>' . __('Connect your dashboard account','wp-dashboard-beacon') . '</p>';
     }
 
     function hsb_beacon_settings_description($args) {}
