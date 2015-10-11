@@ -12,13 +12,14 @@ Easily integrate a Help Scout beacon in your site's dashboard.
 
 == Description ==
 
-This plugin makes it fast and easy to integrate Helpscout's Beacon feature in your WordPress dashboard . That way, your client has easy access to your documentation and has a quick way of contacting you in case they encounter a problem.
+This plugin makes it fast and easy to integrate Help Scout's Beacon feature into your WordPress dashboard. That way, your client has easy access to your documentation and/or has an easy way of contacting you in case they encounter a problem.
 
-**The plugin or it's author are not affiliated with Helpscout in any way.**
+Read more about Help Scout Beaon [here](http://www.helpscout.net/blog/introducing-beacon/).
+
+**Note: the plugin or it's author are not affiliated with Help Scout in any way.**
 
 After installation, you can customize the beacon's options, icon and colour.
 You can also enable the plugin for selected member roles, giving you control over which of your users has access to the beacon and can contact you.
-
 
 == Installation ==
 
