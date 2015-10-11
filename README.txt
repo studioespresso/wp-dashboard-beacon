@@ -1,14 +1,14 @@
 === Plugin Name ===
 Contributors: janhenckens
 Donate link: https://onedge.be/donate
-Tags: dashboard
+Tags: dashboard, support, helpscout, client, documentation, help
 Requires at least: 3.5.0
 Tested up to: 4.3.1
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily integrate a Help Scout beacon in your site's dashboard
+Easily integrate a Help Scout beacon in your site's dashboard.
 
 == Description ==
 
@@ -17,7 +17,7 @@ This plugin makes it fast and easy to integrate Helpscout's Beacon feature in yo
 **The plugin or it's author are not affiliated with Helpscout in any way.**
 
 After installation, you can customize the beacon's options, icon and colour.
-You can also enable the plugin for selected member roles, giving you finner control over which of your users has access to the beacon and contact you.
+You can also enable the plugin for selected member roles, giving you control over which of your users has access to the beacon and can contact you.
 
 
 == Installation ==
