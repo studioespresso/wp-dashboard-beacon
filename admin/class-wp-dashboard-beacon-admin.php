@@ -97,6 +97,11 @@ class Wp_Dashboard_Beacon_Admin {
         * class.
         */
         $user = new WP_User( get_current_user_id() );
+        if(!empty($user->first_name) && !empty($user->last_name)) {
+            $userName = $user->first_name . ' ' . $user->last_name;
+        }
+        $userEmail = $user->user_email;
+
         $userRole = $user->roles['0'];
         $allowedRoles = get_option('hsb_allowed_user_roles');
         if($allowedRoles != "") {
@@ -133,7 +138,9 @@ class Wp_Dashboard_Beacon_Admin {
                             'sendLabel' => __('Send', 'wp-dashboard-beacon'),
                             'contactSuccessLabel' => __('Message sent!', 'wp-dashboard-beacon'),
                             'contactSuccessDescription' => __('Thanks for reaching out! Someone from our team will get back to you soon.', 'wp-dashboard-beacon')
-                        )
+                        ),
+                        'userName' => $userName,
+                        'userEmail' => $userEmail,
                     ));
                }
            }
