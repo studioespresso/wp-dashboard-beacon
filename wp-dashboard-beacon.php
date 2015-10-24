@@ -16,7 +16,7 @@
  * Plugin Name:       Dashboard Beacon
  * Plugin URI:        http://onedge.be
  * Description:       Easily integrate a Helpscout Beacon in your dashboard or website.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Jan Henckens
  * Author URI:        http://onedge.be
  * License:           GPL-2.0+
