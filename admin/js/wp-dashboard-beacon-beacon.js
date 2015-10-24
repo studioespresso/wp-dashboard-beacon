@@ -6,6 +6,8 @@
     var selectedIcon = hsb_settings.icon;
     var formInstructions = hsb_settings.formInstructions;
     var beaconColour = hsb_settings.colour;
+    var userName = hsb_settings.userName;
+    var userEmail = hsb_settings.userEmail;
 
     if(hsb_settings.allowAttachments === '1') { var allowedAttachments = true; } else { var allowedAttachments = false; }
     if(hsb_settings.credits === '1') { var poweredBy = false; } else { var poweredBy = true; }
@@ -76,5 +78,11 @@
             'contactSuccessLabel': hsb_settings.strings.contactSuccessLabel,
             'contactSuccessDescription': hsb_settings.strings.contactSuccessDescription,
         },
+    });
+    HS.beacon.ready(function() {
+        HS.beacon.identify({
+            name: userName,
+            email: userEmail
+        });
     });
 })( jQuery );
