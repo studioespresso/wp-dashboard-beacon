@@ -99,6 +99,8 @@ class Wp_Dashboard_Beacon_Admin {
         $user = new WP_User( get_current_user_id() );
         if(!empty($user->first_name) && !empty($user->last_name)) {
             $userName = $user->first_name . ' ' . $user->last_name;
+        } else {
+            $userName = $user->nickname;
         }
         $userEmail = $user->user_email;
 
