@@ -316,7 +316,21 @@ class Wp_Dashboard_Beacon_Admin {
                 'options' => $this->hsb_get_roles()
             )
         );
+        
+        // Show beacon for front-end visitors
+        add_settings_field(
+            'hsb_show_on_frontend',                                      // ID used to identify the field throughout the theme
+            __('Enable beacon on<br> the front-end', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_permissions_settings',                                         // The page on which this option will be displayed
+            'hsb_permissions_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
+                '',
+                'hsb_show_on_frontend'
+            )
+        );
         register_setting( 'hsb_permissions_settings', 'hsb_allowed_user_roles' );
+        register_setting( 'hsb_permissions_settings', 'hsb_show_on_frontend' );
 
 
     }
@@ -421,7 +435,7 @@ class Wp_Dashboard_Beacon_Admin {
 	}
 
 	public function hsb_add_settings_page() {
-		add_submenu_page( 'tools.php', 'Dashboard Beacon', 'Dashboard Beacon', 'manage_options', 'dashboard_beacon', array( $this, 'hsb_add_settings_page_callback') );
+		add_submenu_page( 'options-general.php', 'Dashboard Beacon', 'Dashboard Beacon', 'manage_options', 'dashboard_beacon', array( $this, 'hsb_add_settings_page_callback') );
 	}
 
 }
