@@ -95,9 +95,53 @@ class Wp_dashboard_Beacon_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		// wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-dashboard-beacon-public.js', array( 'jquery' ), $this->version, false );
-
+        $showOnFrontEnd = get_option('hsb_show_on_frontend');
+    	$formId = get_option('hsb_helpscout_form_id');
+        if($showOnFrontEnd == '1' && $formId) {
+	        $user = new WP_User( get_current_user_id() );
+	        if(!empty($user->first_name) && !empty($user->last_name)) {
+            	$userName = $user->first_name . ' ' . $user->last_name;
+        	} else {
+            	$userName = $user->nickname;
+        	}
+        	$userEmail = $user->user_email;
+            if($formId) {
+                wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-dashboard-beacon-beacon.js', array( 'jquery' ), $this->version, false );
+                wp_localize_script( $this->plugin_name, 'hsb_settings', array(
+                    'formId' => get_option('hsb_helpscout_form_id'),
+                    'subDomain' => get_option('hsb_helpscout_subdomain'),
+                    'beaconOptions' => get_option('hsb_beacon_options'),
+                    'icon' => get_option('hsb_beacon_icon'),
+                    'colour' => get_option('hsb_beacon_colour'),
+                    'credits' => get_option('hsb_hide_credits'),
+                    'formInstructions' => get_option('hsb_form_instructions'),
+                    'allowAttachments' => get_option('hsb_allow_attachments'),
+                    'strings' => array(
+                        'searchLabel' => __('What can we help you with?', 'wp-dashboard-beacon'),
+                        'searchErrorLabel' => __('Your search timed out. Please double-check your internet connection and try again.', 'wp-dashboard-beacon'),
+                        'noResultsLabel' => __('No results found for', 'wp-dashboard-beacon'),
+                        'contactLabel' => __('Send a Message', 'wp-dashboard-beacon'),
+                        'attachFileLabel' => __('Attach a file', 'wp-dashboard-beacon'),
+                        'attachFileError' => __('The maximum file size is 10mb', 'wp-dashboard-beacon'),
+                        'nameLabel' => __('Your Name', 'wp-dashboard-beacon'),
+                        'nameError' => __('Please enter your name', 'wp-dashboard-beacon'),
+                        'emailLabel' => __('Email address', 'wp-dashboard-beacon'),
+                        'emailError' => __('Please enter a valid email address', 'wp-dashboard-beacon'),
+                        'topicLabel' => __('Select a topic', 'wp-dashboard-beacon'),
+                        'topicError' => __('Please select a topic from the list', 'wp-dashboard-beacon'),
+                        'subjectLabel' => __('Subject', 'wp-dashboard-beacon'),
+                        'subjectError' => __('Please enter a subject', 'wp-dashboard-beacon'),
+                        'messageLabel' => __('How can we help you?', 'wp-dashboard-beacon'),
+                        'messageError' => __('Please enter a message', 'wp-dashboard-beacon'),
+                        'sendLabel' => __('Send', 'wp-dashboard-beacon'),
+                        'contactSuccessLabel' => __('Message sent!', 'wp-dashboard-beacon'),
+                        'contactSuccessDescription' => __('Thanks for reaching out! Someone from our team will get back to you soon.', 'wp-dashboard-beacon')
+                    ),
+                    'userName' => $userName,
+                    'userEmail' => $userEmail,
+                ));
+           }
+        }
 	}
 
 }
