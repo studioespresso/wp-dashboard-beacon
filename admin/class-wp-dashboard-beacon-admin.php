@@ -435,7 +435,7 @@ class Wp_Dashboard_Beacon_Admin {
 	}
 
 	public function hsb_add_settings_page() {
-		add_submenu_page( 'options-general.php', 'Dashboard Beacon', 'Dashboard Beacon', 'manage_options', 'dashboard_beacon', array( $this, 'hsb_add_settings_page_callback') );
+		add_submenu_page( 'tools.php', 'Dashboard Beacon', 'Dashboard Beacon', 'manage_options', 'dashboard_beacon', array( $this, 'hsb_add_settings_page_callback') );
 	}
 
 }
