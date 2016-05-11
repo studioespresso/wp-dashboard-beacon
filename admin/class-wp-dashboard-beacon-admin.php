@@ -320,12 +320,12 @@ class Wp_Dashboard_Beacon_Admin {
         // Show beacon for front-end visitors
         add_settings_field(
             'hsb_show_on_frontend',                                      // ID used to identify the field throughout the theme
-            __('Enable beacon on<br> the front-end', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
+            __('Show beacon for anonymous users', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
             array( $this, 'hsb_checkbox_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_permissions_settings',                                         // The page on which this option will be displayed
             'hsb_permissions_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
-                '',
+                __('This setting shows the beacon for <strong>all visitors of your site</strong>', 'wp-dashboard-beacon') ,
                 'hsb_show_on_frontend'
             )
         );
