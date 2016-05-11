@@ -94,7 +94,7 @@ class Wp_Dashboard_Beacon_Admin {
         *
         * The Wp_dashboard_Beacon_Loader will then create the relationship
         * between the defined hooks and the functions defined in this
-        * class.
+        * class
         */
         $user = new WP_User( get_current_user_id() );
         if(!empty($user->first_name) && !empty($user->last_name)) {
