@@ -325,7 +325,7 @@ class Wp_Dashboard_Beacon_Admin {
             'hsb_permissions_settings',                                         // The page on which this option will be displayed
             'hsb_permissions_settings',                                     // The name of the section to which this field belongs
             array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
-                __('This setting shows the beacon for <strong>all visitors of your site</strong>', 'wp-dashboard-beacon') ,
+                __('This setting shows the beacon for <strong>all visitors of your site</strong> and has no relation to the "User role" setting higher up on this page', 'wp-dashboard-beacon') ,
                 'hsb_show_on_frontend'
             )
         );
