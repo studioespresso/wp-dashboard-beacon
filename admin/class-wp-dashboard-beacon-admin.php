@@ -118,7 +118,7 @@ class Wp_Dashboard_Beacon_Admin {
                         'icon' => get_option('hsb_beacon_icon'),
                         'colour' => get_option('hsb_beacon_colour'),
                         'credits' => get_option('hsb_hide_credits'),
-                        'formInstructions' => get_option('hsb_form_instructions'),
+                        'formInstructions' => get_option('hsb_beacon_intro'),
                         'allowAttachments' => get_option('hsb_allow_attachments'),
                         'strings' => array(
                             'searchLabel' => __('What can we help you with?', 'wp-dashboard-beacon'),
@@ -247,6 +247,18 @@ class Wp_Dashboard_Beacon_Admin {
                 )
             )
         );
+        // Subdomain field
+        add_settings_field(
+            'hsb_beacon_intro',                                      // ID used to identify the field throughout the theme
+            __('Text', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_textarea_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
+            'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
+                __('This text will appear above the beacon contact form', 'wp-dashboard-beacon'),
+                'hsb_beacon_intro'
+            )
+        );
 
         // Beacon colour
         add_settings_field(
@@ -291,6 +303,7 @@ class Wp_Dashboard_Beacon_Admin {
         );
 
         register_setting( 'hsb_beacon_display_settings', 'hsb_beacon_icon' );
+        register_setting( 'hsb_beacon_display_settings', 'hsb_beacon_intro' );
         register_setting( 'hsb_beacon_display_settings', 'hsb_beacon_colour' );
         register_setting( 'hsb_beacon_display_settings', 'hsb_allow_attachments' );
         register_setting( 'hsb_beacon_display_settings', 'hsb_hide_credits' );
@@ -344,6 +357,12 @@ class Wp_Dashboard_Beacon_Admin {
 
     function hsb_textfield_callback($args) {
         $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '" value="' . get_option($args[1]) .'">';
+        $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
+        echo $html;
+    }
+    
+    function hsb_textarea_callback($args) {
+        $html = '<textarea size="2" type="text" id="' . $args[1] . '" name="' . $args[1] . '">' . get_option($args[1]) . '</textarea>';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
         echo $html;
     }
