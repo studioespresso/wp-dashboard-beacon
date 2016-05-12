@@ -36,6 +36,9 @@ To use this plugin, you will need a [Helpscout](http://helpscout.net) account.
 
 == Changelog ==
 
+= 1.2.0 =
+* Added option to show the beacon on the front-end for anonymous users
+
 = 1.1.0 =
 * Prefilled the user's name and email in the beacon contact form.
 
