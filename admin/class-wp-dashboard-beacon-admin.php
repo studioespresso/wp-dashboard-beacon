@@ -250,7 +250,7 @@ class Wp_Dashboard_Beacon_Admin {
         // Subdomain field
         add_settings_field(
             'hsb_beacon_intro',                                      // ID used to identify the field throughout the theme
-            __('Text', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
+            __('Contact form instructions', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
             array( $this, 'hsb_textarea_callback'),              // The name of the function responsible for rendering the option interface
             'hsb_beacon_display_settings',                                         // The page on which this option will be displayed
             'hsb_beacon_display_settings',                                     // The name of the section to which this field belongs
