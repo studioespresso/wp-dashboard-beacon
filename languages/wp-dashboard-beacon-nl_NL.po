@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Dashboard Beacon\n"
-"POT-Creation-Date: 2016-05-10 21:45+0200\n"
-"PO-Revision-Date: 2016-05-10 21:45+0200\n"
+"POT-Creation-Date: 2016-05-12 17:42+0200\n"
+"PO-Revision-Date: 2016-05-12 17:45+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -15,8 +15,8 @@ msgstr ""
 "X-Poedit-WPHeader: wp-dashboard-beacon.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
-"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
@@ -187,55 +187,72 @@ msgstr "Boodschap"
 msgid "Search"
 msgstr "Zoeken"
 
-#: admin/class-wp-dashboard-beacon-admin.php:254
+#: admin/class-wp-dashboard-beacon-admin.php:253
+msgid "Contact form instructions"
+msgstr "Contact formulier instructies"
+
+#: admin/class-wp-dashboard-beacon-admin.php:258
+msgid "This text will appear above the beacon contact form"
+msgstr "Deze tekst zal verschijnen boven het contact formulier in de beacon"
+
+#: admin/class-wp-dashboard-beacon-admin.php:266
 msgid "Beacon colour"
 msgstr "Beacon kleur"
 
-#: admin/class-wp-dashboard-beacon-admin.php:259
+#: admin/class-wp-dashboard-beacon-admin.php:271
 msgid "Pick a colour to be used for the beacon icon and text labels"
 msgstr "Kies een kleur wordt gebruikt voor het beacon icoon en tekstlabels"
 
-#: admin/class-wp-dashboard-beacon-admin.php:270
+#: admin/class-wp-dashboard-beacon-admin.php:282
 msgid "Allow attachments"
 msgstr "Bijlages"
 
-#: admin/class-wp-dashboard-beacon-admin.php:283
+#: admin/class-wp-dashboard-beacon-admin.php:295
 msgid "Hide 'Powered by Help Scout'"
 msgstr "Verstop ‘Powered by Help Scout’"
 
-#: admin/class-wp-dashboard-beacon-admin.php:301
+#: admin/class-wp-dashboard-beacon-admin.php:314
 msgid "Beacon permissions and visibility"
 msgstr "Beacon toegang en zichtbaarheid"
 
-#: admin/class-wp-dashboard-beacon-admin.php:309
+#: admin/class-wp-dashboard-beacon-admin.php:322
 msgid "User role"
 msgstr "Rol van de gebruiker"
 
-#: admin/class-wp-dashboard-beacon-admin.php:314
+#: admin/class-wp-dashboard-beacon-admin.php:327
 msgid "Enable beacon for user who's role is at least the selected role"
 msgstr "Selecteer de gebruikersrollen voor wie je je beacon wil activeren"
 
-#: admin/class-wp-dashboard-beacon-admin.php:323
-msgid "Enable beacon on<br> the front-end"
-msgstr "Toon beacon op de<br>publieke pagina’s van de site"
+#: admin/class-wp-dashboard-beacon-admin.php:336
+msgid "Show beacon for anonymous users"
+msgstr "Toon beacon aan anonieme bezoekers"
 
-#: admin/class-wp-dashboard-beacon-admin.php:339
+#: admin/class-wp-dashboard-beacon-admin.php:341
+msgid ""
+"This setting shows the beacon for <strong>all visitors of your site</strong> "
+"and has no relation to the \"User role\" setting higher up on this page"
+msgstr ""
+"Deze instelling zorgt ervoor dat de beacon <strong>voor alle bezoekers van "
+"je site</strong> zichtbaar is en heeft geen relatie met de “Gebruikersrol” "
+"instelling hierboven"
+
+#: admin/class-wp-dashboard-beacon-admin.php:352
 msgid "Connect your dashboard account"
 msgstr "Verbinding maken met je Help Scout account"
 
-#: admin/class-wp-dashboard-beacon-admin.php:409
+#: admin/class-wp-dashboard-beacon-admin.php:428
 msgid "Help Scout beacon settings"
 msgstr "Help Scout beacon instellingen"
 
-#: admin/class-wp-dashboard-beacon-admin.php:414
+#: admin/class-wp-dashboard-beacon-admin.php:433
 msgid "Setup"
 msgstr "Configuratie"
 
-#: admin/class-wp-dashboard-beacon-admin.php:415
+#: admin/class-wp-dashboard-beacon-admin.php:434
 msgid "Display settings"
 msgstr "Weergave-instellingen"
 
-#: admin/class-wp-dashboard-beacon-admin.php:416
+#: admin/class-wp-dashboard-beacon-admin.php:435
 msgid "Permissions"
 msgstr "Toegangsrechten"
 
@@ -255,3 +272,6 @@ msgstr "Moeiteloze integratie voor Help Scout beacon."
 #. Author of the plugin/theme
 msgid "Jan Henckens"
 msgstr "Jan Henckens"
+
+#~ msgid "Enable beacon on<br> the front-end"
+#~ msgstr "Toon beacon op de<br>publieke pagina’s van de site"
