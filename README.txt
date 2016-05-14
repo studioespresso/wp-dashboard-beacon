@@ -3,8 +3,8 @@ Contributors: janhenckens
 Donate link: https://onedge.be/donate
 Tags: dashboard, support, helpscout, client, documentation, help
 Requires at least: 3.5.0
-Tested up to: 4.3.1
-Stable tag: 1.1.0
+Tested up to: 4.5.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,7 @@ To use this plugin, you will need a [Helpscout](http://helpscout.net) account.
 
 = 1.2.0 =
 * Added option to show the beacon on the front-end for anonymous users
+* Added aa text field that can be shown above the contact form
 
 = 1.1.0 =
 * Prefilled the user's name and email in the beacon contact form.
