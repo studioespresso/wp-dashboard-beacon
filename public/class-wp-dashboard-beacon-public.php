@@ -114,7 +114,7 @@ class Wp_dashboard_Beacon_Public {
                     'icon' => get_option('hsb_beacon_icon'),
                     'colour' => get_option('hsb_beacon_colour'),
                     'credits' => get_option('hsb_hide_credits'),
-                    'formInstructions' => get_option('hsb_form_instructions'),
+                    'formInstructions' => get_option('hsb_beacon_intro'),
                     'allowAttachments' => get_option('hsb_allow_attachments'),
                     'strings' => array(
                         'searchLabel' => __('What can we help you with?', 'wp-dashboard-beacon'),
