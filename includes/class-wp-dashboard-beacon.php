@@ -159,7 +159,7 @@ class Wp_dashboard_Beacon {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'hsb_add_settings_page' );
 		if(is_multisite()) {
 			$multisite = new Wp_dashboard_Beacon_Multisite( $this->get_plugin_name(), $this->get_version());
-	    	$this->loader->add_action( 'network_admin_menu', $multisite, 'hsb_multisite_register_settings' );
+	    	$this->loader->add_action( 'network_admin_menu', $multisite, 'hsb_multisite_add_settings_page' );
 		}
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'hsb_register_settings' );
 	}

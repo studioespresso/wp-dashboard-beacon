@@ -55,13 +55,42 @@ class Wp_Dashboard_Beacon_Multisite {
 
 	}
 	
+    function hsb_register_multisite_settings() {
+    	
+    }
+
+	
 	public function hsb_add_settings_page_callback() {
 	    global $wpdb;
-	    var_dump(wp_get_sites(array( 'network_id' => $wpdb->siteid)));
+	        $blogs = $wpdb->get_results( $wpdb->prepare("SELECT blog_id, domain, path FROM $wpdb->blogs WHERE site_id = %d AND public = '1' AND archived = '0' AND mature = '0' AND spam = '0' AND deleted = '0' ORDER BY domain ASC, path ASC
+", $wpdb->siteid), ARRAY_A );
+
+            // put it in array  
+            foreach ( (array) $blogs as $details ) {$blog_list[ $details['blog_id'] ] = $details;}
+            unset( $blogs );
+            $blogs = $blog_list;
+
+            // if is valid array
+            if (is_array( $blogs ) ){
+                    echo '<ul>';
+                    $array= array();
+                    // reorder
+                    $array= array_slice( $blogs, 0, count( $blogs ) );
+                    for($i=0;$i<count($array);$i++){
+                    // get data for each id
+                    $blog = get_blog_details( $array[$i]['blog_id'] );
+                    // print it
+                    echo '<li><a href="'.$blog->siteurl.'">'.$blog->blogname.'</a></li>';
+                    }
+                    echo '</ul>';
+            }
+            
+            
+           
 
 	}
 	
-	public function hsb_multisite_register_settings() {
+	public function hsb_multisite_add_settings_page() {
 	         add_menu_page ('Helpscout Beaonc', 'Beacon settings', 'manage_network', 'hsb-settings', array( $this, 'hsb_add_settings_page_callback'));
 	}
 }
