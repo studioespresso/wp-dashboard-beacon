@@ -112,6 +112,7 @@ class Wp_dashboard_Beacon {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wp-dashboard-beacon-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wp-dashboard-beacon-multisite.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
@@ -156,7 +157,11 @@ class Wp_dashboard_Beacon {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'hsb_enqueue_colourpicker' );
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'hsb_add_settings_page' );
-        $this->loader->add_action( 'admin_init', $plugin_admin, 'hsb_register_settings' );
+		if(is_multisite()) {
+			$multisite = new Wp_dashboard_Beacon_Multisite( $this->get_plugin_name(), $this->get_version());
+	    	$this->loader->add_action( 'network_admin_menu', $multisite, 'hsb_multisite_register_settings' );
+		}
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'hsb_register_settings' );
 	}
 
 	/**
