@@ -30,15 +30,50 @@ class Wp_dashboard_Beacon_Multisite {
 
         // Account settings, displayed on tab 1
         add_settings_section(
-            'hsb_account_settings',                                     // ID used to identify this section and with which to register options
+            'hsb_network_options_page',                                     // ID used to identify this section and with which to register options
             __('Help Scout account settings', 'wp-dashboard-beacon'),    // Title to be displayed on the administration page
             array( $this, 'hsb_account_settings_description'),          // Callback used to render the description of the section
             'hsb_network_options_page'                                         // Page on which to add this section of options
         );
-    }
+        
+        // Form ID field
+        add_settings_field(
+            'hsb_helpscout_form_id',                                      // ID used to identify the field throughout the theme
+            'Beacon form ID',                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_textfield_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_network_options_page',                                         // The page on which this option will be displayed
+            'hsb_network_options_page',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
+                __('Enter the form ID for your beacon', 'wp-dashboard-beacon'),
+                'hsb_helpscout_form_id'
+            )
+        );
+
+        // Subdomain field
+        add_settings_field(
+            'hsb_helpscout_subdomain',                                      // ID used to identify the field throughout the theme
+            __('Help Scout subdomain', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_textfield_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_network_options_page',                                         // The page on which this option will be displayed
+            'hsb_network_options_page',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.
+                __('Enter the subdomain of your Helpscout docs account', 'wp-dashboard-beacon'),
+                'hsb_helpscout_subdomain'
+            )
+        );
+        
+        register_setting( 'hsb_network_options_page', 'hsb_helpscout_subdomain' );
+        register_setting( 'hsb_network_options_page', 'hsb_helpscout_form_id' );
+    }  
     
     function hsb_account_settings_description() {
         echo '<p>' . __('Connect your dashboard account','wp-dashboard-beacon') . '</p>';
+    }
+    
+    function hsb_textfield_callback($args) {
+        $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '" value="' . get_site_option($args[1]) .'">';
+        $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
+        echo $html;
     }
 
     function hsb_add_settings_page_callback() {
