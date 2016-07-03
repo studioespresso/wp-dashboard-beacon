@@ -133,7 +133,7 @@ class Wp_dashboard_Beacon_Multisite {
     function hsb_select_callback($args) {
         $html = '<select id="' . $args[1] . '" name="' . $args[1] . '">';
         foreach ($args['options'] as $key => $value) {
-            $html .= '<option value="' . $key . '"' . selected( get_option($args[1]), $key, false) . '>' . $value . '</option>';
+            $html .= '<option value="' . $key . '"' . selected( get_site_option($args[1]), $key, false) . '>' . $value . '</option>';
         }
         $html .= '</select>';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
@@ -141,19 +141,19 @@ class Wp_dashboard_Beacon_Multisite {
     }
     
     function hsb_textarea_callback($args) {
-        $html = '<textarea size="2" type="text" id="' . $args[1] . '" name="' . $args[1] . '">' . get_option($args[1]) . '</textarea>';
+        $html = '<textarea size="2" type="text" id="' . $args[1] . '" name="' . $args[1] . '">' . get_site_option($args[1]) . '</textarea>';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
         echo $html;
     }
 
     function hsb_checkbox_callback($args) {
-        $html = '<input type="checkbox" id="' . $args[1] .'" name="' . $args[1] .'" value="1" ' . checked(1, get_option($args[1]), false) . '/>';
+        $html = '<input type="checkbox" id="' . $args[1] .'" name="' . $args[1] .'" value="1" ' . checked(1, get_site_option($args[1]), false) . '/>';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
         echo $html;
     }
     
     public function hsb_colourpicker_callback($args) {
-        $val = ( null !== get_option('hsb_beacon_colour')  ) ? get_option('hsb_beacon_colour') : $args['options']['default'];
+        $val = ( null !== get_site_option('hsb_beacon_colour')  ) ? get_site_option('hsb_beacon_colour') : $args['options']['default'];
         $html = '<input type="text" name="' . $args[1] .'" value="' . $val . '" class="hsb_beacon_colour" >';
         $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
         echo $html;
@@ -200,10 +200,7 @@ class Wp_dashboard_Beacon_Multisite {
 
       foreach ($options as $option) {
         if (isset($_POST[$option])) {
-
           update_site_option($option, $_POST[$option]);
-        } else {
-          delete_site_option($option);
         }
       }
     
