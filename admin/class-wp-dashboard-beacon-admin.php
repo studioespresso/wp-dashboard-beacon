@@ -151,7 +151,7 @@ class Wp_Dashboard_Beacon_Admin {
 	}
 
     function hsb_enqueue_colourpicker( $hook ) {
-        if ( 'tools_page_dashboard_beacon' != $hook ) {
+        if ( 'tools_page_dashboard_beacon' != $hook AND 'settings_page_hsb_network_options_page' != $hook) {
             return;
         }
         // Add the color picker css file
