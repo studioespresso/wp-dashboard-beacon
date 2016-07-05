@@ -37,10 +37,17 @@ class Wp_dashboard_Beacon_Multisite {
         );
         
         add_settings_section(
-            'hsb_beacon_display_settings',                                     // ID used to identify this section and with which to register options
-            __('Customize your beacon', 'wp-dashboard-beacon'),    // Title to be displayed on the administration page
-            array( $this, 'hsb_beacon_settings_description'),          // Callback used to render the description of the section
-            'hsb_network_options_page'                                         // Page on which to add this section of options
+            'hsb_beacon_display_settings',
+            __('Customize your beacon', 'wp-dashboard-beacon'),
+            array( $this, 'hsb_beacon_settings_description'),
+            'hsb_network_options_page'
+        );
+        
+        add_settings_section(
+            'hsb_network_settings',
+            __('Customize your beacon', 'wp-dashboard-beacon'),
+            array( $this, 'hsb_network_settings_description'),
+            'hsb_network_options_page'
         );
 
 
@@ -123,6 +130,7 @@ class Wp_dashboard_Beacon_Multisite {
     
     function hsb_beacon_settings_description($args) {}
     function hsb_permissions_settings_description($args) {}
+    function hsb_network_settings_description($args) {}
     
     function hsb_textfield_callback($args) {
         $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '" value="' . get_site_option($args[1]) .'">';
@@ -169,6 +177,7 @@ class Wp_dashboard_Beacon_Multisite {
             <h2 class="nav-tab-wrapper">
                 <a href="?page=hsb_network_options_page&tab=hsb_network_options_page" class="nav-tab <?php echo $active_tab == 'hsb_network_options_page' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
                 <a href="?page=hsb_network_options_page&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?> </a>
+                <a href="?page=hsb_network_options_page&tab=hsb_network_settings" class="nav-tab <?php echo $active_tab == 'hsb_network_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Network settings','wp-dashboard-beacon'); ?> </a>
 
             </h2>
             <form method="POST" action="edit.php?action=hsb_update_network_options"><?php
@@ -177,6 +186,8 @@ class Wp_dashboard_Beacon_Multisite {
                     do_settings_sections('hsb_network_options_page');
                 } elseif( $active_tab =='hsb_beacon_display_settings' ) {
                     do_settings_sections('hsb_beacon_display_settings');
+                } elseif ($active_tab = 'hsb_network_settings') {
+                    do_settings_sections('hsb_network_settings');
                 };        
                 submit_button(); ?>
             </form>
