@@ -37,13 +37,6 @@ class Wp_dashboard_Beacon_Multisite {
         );
         
         add_settings_section(
-            'hsb_beacon_display_settings',
-            __('Customize your beacon', 'wp-dashboard-beacon'),
-            array( $this, 'hsb_beacon_settings_description'),
-            'hsb_network_options_page'
-        );
-        
-        add_settings_section(
             'hsb_network_settings',
             __('Customize your beacon', 'wp-dashboard-beacon'),
             array( $this, 'hsb_network_settings_description'),
@@ -176,16 +169,15 @@ class Wp_dashboard_Beacon_Multisite {
             <h1><?php _e('Helpscout Beacon - Network settings', 'wp-dashboard-beacon'); ?></h1>
             <h2 class="nav-tab-wrapper">
                 <a href="?page=hsb_network_options_page&tab=hsb_network_options_page" class="nav-tab <?php echo $active_tab == 'hsb_network_options_page' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
-                <a href="?page=hsb_network_options_page&tab=hsb_beacon_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_beacon_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?> </a>
+                <a href="?page=hsb_network_options_page&tab=hsb_network_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_network_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?> </a>
                 <a href="?page=hsb_network_options_page&tab=hsb_network_settings" class="nav-tab <?php echo $active_tab == 'hsb_network_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Network settings','wp-dashboard-beacon'); ?> </a>
-
             </h2>
             <form method="POST" action="edit.php?action=hsb_update_network_options"><?php
                 settings_fields('hsb_network_options_page');
                 if( $active_tab == 'hsb_network_options_page' ) {
                     do_settings_sections('hsb_network_options_page');
-                } elseif( $active_tab =='hsb_beacon_display_settings' ) {
-                    do_settings_sections('hsb_beacon_display_settings');
+                } elseif( $active_tab =='hsb_network_display_settings' ) {
+                    do_settings_sections('hsb_network_display_settings');
                 } elseif ($active_tab = 'hsb_network_settings') {
                     do_settings_sections('hsb_network_settings');
                 };        
