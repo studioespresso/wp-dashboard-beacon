@@ -94,10 +94,13 @@ class Wp_dashboard_Beacon_Multisite {
         add_settings_field(
             'hsb_network_enabled_sites',
             __('Enable beacon on these sites', 'wp-dashboard-beacon'),
-            array($this, 'hsb_sites_list'),
+            array($this, 'hsb_checkboxes_callback'),
             'hsb_network_settings',
             'hsb_network_settings',
-            array(__('Enabled sites will inherit the beacon settings from the network', 'wp-dashboard-beacon'))
+            array(__('Enabled sites will inherit the beacon settings from the network', 'wp-dashboard-beacon'),
+            'hsb_network_enabled_sites',
+            'options' => $this->get_network_sites()
+            )
         );
         
         register_setting( 'hsb_network_settings', 'hsb_network_enabled_sites');
@@ -105,9 +108,9 @@ class Wp_dashboard_Beacon_Multisite {
     }
 
     function hsb_account_settings_description() {}
-    function hsb_beacon_settings_description($args) {}
-    function hsb_permissions_settings_description($args) {}
-    function hsb_network_settings_description($args) {}
+    function hsb_beacon_settings_description() {}
+    function hsb_permissions_settings_description() {}
+    function hsb_network_settings_description() {}
 
     function hsb_textfield_callback($args) {
         $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '" value="' . get_site_option($args[1]) .'">';
@@ -144,7 +147,36 @@ class Wp_dashboard_Beacon_Multisite {
         echo $html;
     }
     
-    function hsb_sites_list($args) {} 
+    public function hsb_checkboxes_callback($args) {
+        $html = '';
+        $val = get_site_option($args[1]);
+        var_dump($val);
+        $options = $val;
+        foreach ($args['options'] as $key => $option) {
+            $checked = '';
+            $label = $option['label'];
+            $option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($option['name']));
+            $id = $args[1] . '-' . '' . '-'. $option;
+            $name = $args[1] . '[' . $option .']';
+            if($options) {
+                $checked = checked($options[$option], 1, false);
+            }
+            $html .= '<input id="' . esc_attr( $id ) . '" type="checkbox" value="1" name="' . esc_attr( $name ) . '" ' . $checked . ' /><label for="' . esc_attr( $id ) . '">' . esc_html( $label ) . '</label><br />';
+        }
+        $html .= '<p class="description" id="tagline-description"> '  . $args[0] . ' </p>';
+        echo $html;
+    }
+    
+    public function get_network_sites() {
+        $sites = array();
+        foreach (wp_get_sites() as $id => $site) {
+            $site = get_blog_details($site['blog_id']);
+            $sites[$site->blog_id]['name'] = $site->blog_id;
+            $sites[$site->blog_id]['label'] = $site->blogname;
+            $sites[$site->blog_id]['path'] = $site->siteurl;
+        }
+        return $sites;
+    }
 
 
     function hsb_add_settings_page_callback() {
