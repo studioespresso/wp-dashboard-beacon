@@ -82,7 +82,7 @@ class Wp_dashboard_Beacon_Multisite {
 
         register_setting( 'hsb_network_options_page', 'hsb_helpscout_subdomain' );
         register_setting( 'hsb_network_options_page', 'hsb_helpscout_form_id' );
-        register_setting( 'hsb_network_options_page', 'hsb_helpscout_form_id' );
+        register_setting( 'hsb_network_options_page', 'hsb_beacon_options' );
         
         add_settings_section(
             'hsb_network_settings',
@@ -150,7 +150,6 @@ class Wp_dashboard_Beacon_Multisite {
     public function hsb_checkboxes_callback($args) {
         $html = '';
         $val = get_site_option($args[1]);
-        var_dump($val);
         $options = $val;
         foreach ($args['options'] as $key => $option) {
             $checked = '';
@@ -169,11 +168,13 @@ class Wp_dashboard_Beacon_Multisite {
     
     public function get_network_sites() {
         $sites = array();
+        $i = 0;
         foreach (wp_get_sites() as $id => $site) {
             $site = get_blog_details($site['blog_id']);
-            $sites[$site->blog_id]['name'] = $site->blog_id;
-            $sites[$site->blog_id]['label'] = $site->blogname;
-            $sites[$site->blog_id]['path'] = $site->siteurl;
+            $sites[$i]['name'] = $site->blogname;
+            $sites[$i]['label'] = $site->blogname;
+            $sites[$i]['path'] = $site->siteurl;
+            $i++;
         }
         return $sites;
     }
@@ -215,6 +216,7 @@ class Wp_dashboard_Beacon_Multisite {
       // This is the list of registered options.
       global $new_whitelist_options;
       $options = $new_whitelist_options['hsb_network_options_page'];
+      $options = $new_whitelist_options['hsb_network_settings'];
 
       foreach ($options as $option) {
         if (isset($_POST[$option])) {
