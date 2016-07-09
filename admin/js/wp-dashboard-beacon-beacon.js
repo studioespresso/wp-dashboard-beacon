@@ -56,7 +56,7 @@
         color: beaconColour,
         attachment: allowedAttachments,
         instructions: formInstructions,
-        poweredBy: false,
+        poweredBy: poweredBy,
         translation: {
             'searchLabel': hsb_settings.strings.searchLabel,
             'searchErrorLabel': hsb_settings.strings.searchErrorLabel,
