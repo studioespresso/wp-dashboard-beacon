@@ -150,19 +150,22 @@ class Wp_dashboard_Beacon {
 	 * @access   private
 	 */
 	private function define_admin_hooks() {
-
-		$plugin_admin = new Wp_dashboard_Beacon_Admin( $this->get_plugin_name(), $this->get_version() );
-
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'hsb_enqueue_colourpicker' );
-		$this->loader->add_action( 'admin_menu', $plugin_admin, 'hsb_add_settings_page' );
 		if(is_multisite()) {
 			$multisite = new Wp_dashboard_Beacon_Multisite( $this->get_plugin_name(), $this->get_version());
+			$this->loader->add_action( 'admin_enqueue_scripts', $multisite, 'enqueue_styles' );
+			$this->loader->add_action( 'admin_enqueue_scripts', $multisite, 'enqueue_scripts' );
+			$this->loader->add_action( 'admin_enqueue_scripts', $multisite, 'hsb_enqueue_colourpicker' );
 	    	$this->loader->add_action( 'network_admin_menu', $multisite, 'hsb_network_admin_menu' );
 	    	$this->loader->add_action( 'network_admin_edit_hsb_update_network_options', $multisite, 'hsb_update_network_options');
+		} else {
+			$plugin_admin = new Wp_dashboard_Beacon_Admin( $this->get_plugin_name(), $this->get_version() );
+			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'hsb_enqueue_colourpicker' );
+			$this->loader->add_action( 'admin_menu', $plugin_admin, 'hsb_add_settings_page' );
+			$this->loader->add_action( 'admin_init', $plugin_admin, 'hsb_register_settings' );
+
 		}
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'hsb_register_settings' );
 	}
 
 	/**

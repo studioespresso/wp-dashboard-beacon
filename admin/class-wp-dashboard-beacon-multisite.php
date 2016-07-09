@@ -22,6 +22,113 @@
  */
 class Wp_dashboard_Beacon_Multisite {
 
+        /**
+    * Register the stylesheets for the admin area.
+    *
+    * @since    1.0.0
+    */
+    public function enqueue_styles() {
+
+        /**
+        * This function is provided for demonstration purposes only.
+        *
+        * An instance of this class should be passed to the run() function
+        * defined in Wp_dashboard_Beacon_Loader as all of the hooks are defined
+        * in that particular class.
+        *
+        * The Wp_dashboard_Beacon_Loader will then create the relationship
+        * between the defined hooks and the functions defined in this
+        * class.
+        */
+
+
+        wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wp-dashboard-beacon-admin.css', array(), $this->version, 'all' );
+
+    }
+
+    /**
+    * Register the JavaScript for the admin area.
+    *
+    * @since    1.0.0
+    */
+    public function enqueue_scripts() {
+
+        /**
+        * This function is provided for demonstration purposes only.
+        *
+        * An instance of this class should be passed to the run() function
+        * defined in Wp_dashboard_Beacon_Loader as all of the hooks are defined
+        * in that particular class.
+        *
+        * The Wp_dashboard_Beacon_Loader will then create the relationship
+        * between the defined hooks and the functions defined in this
+        * class
+        */
+        $user = new WP_User( get_current_user_id() );
+        if(!empty($user->first_name) && !empty($user->last_name)) {
+            $userName = $user->first_name . ' ' . $user->last_name;
+        } else {
+            $userName = $user->nickname;
+        }
+        $userEmail = $user->user_email;
+
+        $userRole = $user->roles['0'];
+        $allowedRoles = get_option('hsb_allowed_user_roles');
+        if($allowedRoles != "") {
+            if(array_key_exists($userRole, $allowedRoles)) {
+                $formId = get_option('hsb_helpscout_form_id');
+                if($formId) {
+                    wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-dashboard-beacon-beacon.js', array( 'jquery' ), $this->version, false );
+                    wp_localize_script( $this->plugin_name, 'hsb_settings', array(
+                        'formId' => get_option('hsb_helpscout_form_id'),
+                        'subDomain' => get_option('hsb_helpscout_subdomain'),
+                        'beaconOptions' => get_option('hsb_beacon_options'),
+                        'icon' => get_option('hsb_beacon_icon'),
+                        'colour' => get_option('hsb_beacon_colour'),
+                        'credits' => get_option('hsb_hide_credits'),
+                        'formInstructions' => get_option('hsb_beacon_intro'),
+                        'allowAttachments' => get_option('hsb_allow_attachments'),
+                        'strings' => array(
+                            'searchLabel' => __('What can we help you with?', 'wp-dashboard-beacon'),
+                            'searchErrorLabel' => __('Your search timed out. Please double-check your internet connection and try again.', 'wp-dashboard-beacon'),
+                            'noResultsLabel' => __('No results found for', 'wp-dashboard-beacon'),
+                            'contactLabel' => __('Send a Message', 'wp-dashboard-beacon'),
+                            'attachFileLabel' => __('Attach a file', 'wp-dashboard-beacon'),
+                            'attachFileError' => __('The maximum file size is 10mb', 'wp-dashboard-beacon'),
+                            'nameLabel' => __('Your Name', 'wp-dashboard-beacon'),
+                            'nameError' => __('Please enter your name', 'wp-dashboard-beacon'),
+                            'emailLabel' => __('Email address', 'wp-dashboard-beacon'),
+                            'emailError' => __('Please enter a valid email address', 'wp-dashboard-beacon'),
+                            'topicLabel' => __('Select a topic', 'wp-dashboard-beacon'),
+                            'topicError' => __('Please select a topic from the list', 'wp-dashboard-beacon'),
+                            'subjectLabel' => __('Subject', 'wp-dashboard-beacon'),
+                            'subjectError' => __('Please enter a subject', 'wp-dashboard-beacon'),
+                            'messageLabel' => __('How can we help you?', 'wp-dashboard-beacon'),
+                            'messageError' => __('Please enter a message', 'wp-dashboard-beacon'),
+                            'sendLabel' => __('Send', 'wp-dashboard-beacon'),
+                            'contactSuccessLabel' => __('Message sent!', 'wp-dashboard-beacon'),
+                            'contactSuccessDescription' => __('Thanks for reaching out! Someone from our team will get back to you soon.', 'wp-dashboard-beacon')
+                        ),
+                        'userName' => $userName,
+                        'userEmail' => $userEmail,
+                    ));
+               }
+           }
+       }
+
+    }
+
+    function hsb_enqueue_colourpicker( $hook ) {
+        if ( 'tools_page_dashboard_beacon' != $hook AND 'settings_page_hsb_network_options_page' != $hook) {
+            return;
+        }
+        // Add the color picker css file
+        wp_enqueue_style( 'wp-color-picker' );
+        // Include our custom jQuery file with WordPress Color Picker dependency
+        wp_enqueue_script( 'custom-script-handle', plugins_url( 'js/wp-dashboard-beacon-colourpicker.js', __FILE__ ), array( 'wp-color-picker' ), false, true ); 
+    }
+
+
     function hsb_network_admin_menu() {
         // Create our options page.
         add_submenu_page('settings.php', __('Helpscout Beacon', 'wp-dashboard-beacon'),
@@ -154,7 +261,7 @@ class Wp_dashboard_Beacon_Multisite {
         foreach ($args['options'] as $key => $option) {
             $checked = '';
             $label = $option['label'];
-            $option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($option['name']));
+            $option = preg_replace('/[^a-zA-Z0-9._\-]/', '', strtolower($option['id']));
             $id = $args[1] . '-' . '' . '-'. $option;
             $name = $args[1] . '[' . $option .']';
             if($options) {
@@ -170,10 +277,11 @@ class Wp_dashboard_Beacon_Multisite {
         $sites = array();
         $i = 0;
         foreach (wp_get_sites() as $id => $site) {
-            $site = get_blog_details($site['blog_id']);
-            $sites[$i]['name'] = $site->blogname;
-            $sites[$i]['label'] = $site->blogname;
-            $sites[$i]['path'] = $site->siteurl;
+            $blog = get_blog_details($site['blog_id']);
+            $sites[$blog->blog_id]['id'] = $blog->blog_id;
+            $sites[$blog->blog_id]['name'] = $blog->blogname;
+            $sites[$blog->blog_id]['label'] = $blog->blogname;
+            $sites[$blog->blog_id]['path'] = $blog->siteurl;
             $i++;
         }
         return $sites;
