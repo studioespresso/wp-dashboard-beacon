@@ -299,7 +299,7 @@ class Wp_dashboard_Beacon_Multisite {
                 <a href="?page=hsb_network_options_page&tab=hsb_network_options_page" class="nav-tab <?php echo $active_tab == 'hsb_network_options_page' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
                 <a href="?page=hsb_network_options_page&tab=hsb_network_settings" class="nav-tab <?php echo $active_tab == 'hsb_network_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Network settings','wp-dashboard-beacon'); ?> </a>
             </h2>
-            <form method="POST" action="edit.php?action=hsb_update_network_options"><?php
+            <form method="POST" action="edit.php?action=hsb_update_settings"><?php
                 settings_fields('hsb_network_options_page');
                 if( $active_tab == 'hsb_network_options_page' ) {
                     do_settings_sections('hsb_network_options_page');
@@ -311,30 +311,24 @@ class Wp_dashboard_Beacon_Multisite {
         </div>
     <?php
     }
-
-    /**
-     * This function here is hooked up to a special action and necessary to process
-     * the saving of the options. This is the big difference with a normal options
-     * page.
-     */
      
-    function hsb_update_network_options() {
-      check_admin_referer('hsb_network_options_page-options');
+    function hsb_update_settings() {
+        check_admin_referer('hsb_network_options_page-options');
     
-      // This is the list of registered options.
-      global $new_whitelist_options;
-      $options = $new_whitelist_options['hsb_network_options_page'];
-      $options = $new_whitelist_options['hsb_network_settings'];
-
-      foreach ($options as $option) {
-        if (isset($_POST[$option])) {
-          update_site_option($option, $_POST[$option]);
+        // This is the list of registered options.
+        global $new_whitelist_options;
+        $options = $new_whitelist_options['hsb_network_options_page'];
+        $options = $new_whitelist_options['hsb_network_settings'];
+      
+        foreach ($options as $option) {
+            if (isset($_POST[$option])) {
+                update_site_option($option, $_POST[$option]);
+            }
         }
-      }
     
-      wp_redirect(add_query_arg(array('page' => 'hsb_network_options_page',
-          'updated' => 'true'), network_admin_url('settings.php')));
-      exit;
+        wp_redirect(add_query_arg(array('page' => 'hsb_network_options_page',
+            'updated' => 'true'), network_admin_url('settings.php')));
+        exit;
     }
 
 }
