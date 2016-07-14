@@ -317,15 +317,17 @@ class Wp_dashboard_Beacon_Multisite {
     
         // This is the list of registered options.
         global $new_whitelist_options;
-        $options = $new_whitelist_options['hsb_network_options_page'];
-        $options = $new_whitelist_options['hsb_network_settings'];
-      
+        $options = array_merge($new_whitelist_options['hsb_network_options_page'], $new_whitelist_options['hsb_network_settings']);
+        
         foreach ($options as $option) {
             if (isset($_POST[$option])) {
                 update_site_option($option, $_POST[$option]);
             }
+            if($option == 'hsb_network_enabled_sites' && $_POST['hsb_network_enabled_sites'] === NULL) {
+                update_site_option($option, '');
+            }
         }
-    
+        
         wp_redirect(add_query_arg(array('page' => 'hsb_network_options_page',
             'updated' => 'true'), network_admin_url('settings.php')));
         exit;
