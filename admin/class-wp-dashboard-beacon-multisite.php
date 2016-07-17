@@ -200,7 +200,6 @@ class Wp_dashboard_Beacon_Multisite {
             )
         );
         
-        
         // Beacon options
         add_settings_field(
             'hsb_beacon_options',                                      // ID used to identify the field throughout the theme
@@ -222,7 +221,44 @@ class Wp_dashboard_Beacon_Multisite {
         register_setting( 'hsb_network_options_page', 'hsb_helpscout_subdomain' );
         register_setting( 'hsb_network_options_page', 'hsb_helpscout_form_id' );
         register_setting( 'hsb_network_options_page', 'hsb_beacon_options' );
+
+
+        /**
+         * Display settings
+         */
+        add_settings_section(
+            'hsb_network_display_settings',                                     // ID used to identify this section and with which to register options
+            __('Customize your beacon', 'wp-dashboard-beacon'),    // Title to be displayed on the administration page
+            array( $this, 'hsb_network_display_settings_description'),          // Callback used to render the description of the section
+            'hsb_network_display_settings'                                         // Page on which to add this section of options
+        );
+
+        // Beacon icon
+        add_settings_field(
+            'hsb_beacon_icon',                                      // ID used to identify the field throughout the theme
+            __('Beacon Icon', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
+            array( $this, 'hsb_select_callback'),              // The name of the function responsible for rendering the option interface
+            'hsb_network_display_settings',                                         // The page on which this option will be displayed
+            'hsb_network_display_settings',                                     // The name of the section to which this field belongs
+            array(                                                      // The array of arguments to pass to the callback. In this case, just a description.'dashboard_enable_contact_form'
+                __('Select an icon to be used in your beacon', 'wp-dashboard-beacon'),
+                'hsb_beacon_icon',
+                'options' => array(
+                    '' => 'Select an icon',
+                    'question' => __('Question', 'wp-dashboard-beacon'),
+                    'beacon' => __('Beacon', 'wp-dashboard-beacon'),
+                    'buoy' => __('Buoy', 'wp-dashboard-beacon'),
+                    'message' => __('Message', 'wp-dashboard-beacon'),
+                    'search' => __('Search', 'wp-dashboard-beacon')
+                )
+            )
+        );
+
+        register_setting( 'hsb_network_display_settings', 'hsb_beacon_icon' );
         
+        /**
+         * Network settings
+         */
         add_settings_section(
             'hsb_network_settings',
             __('Network settings', 'wp-dashboard-beacon'),
@@ -250,6 +286,7 @@ class Wp_dashboard_Beacon_Multisite {
     function hsb_beacon_settings_description() {}
     function hsb_permissions_settings_description() {}
     function hsb_network_settings_description() {}
+    function hsb_network_display_settings_description() {}
 
     function hsb_textfield_callback($args) {
         $html = '<input type="text" id="' . $args[1] . '" name="' . $args[1] . '" value="' . get_site_option($args[1]) .'">';
@@ -329,15 +366,18 @@ class Wp_dashboard_Beacon_Multisite {
             <h1><?php _e('Helpscout Beacon - Network settings', 'wp-dashboard-beacon'); ?></h1>
             <h2 class="nav-tab-wrapper">
                 <a href="?page=hsb_network_options_page&tab=hsb_network_options_page" class="nav-tab <?php echo $active_tab == 'hsb_network_options_page' ? 'nav-tab-active' : ''; ?>"><?php echo __('Setup','wp-dashboard-beacon'); ?></a>
+                <a href="?page=hsb_network_options_page&tab=hsb_network_display_settings" class="nav-tab <?php echo $active_tab == 'hsb_network_display_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Display settings','wp-dashboard-beacon'); ?></a>
                 <a href="?page=hsb_network_options_page&tab=hsb_network_settings" class="nav-tab <?php echo $active_tab == 'hsb_network_settings' ? 'nav-tab-active' : ''; ?>"><?php echo __('Network settings','wp-dashboard-beacon'); ?> </a>
             </h2>
             <form method="POST" action="edit.php?action=hsb_update_settings"><?php
                 settings_fields('hsb_network_options_page');
                 if( $active_tab == 'hsb_network_options_page' ) {
                     do_settings_sections('hsb_network_options_page');
-                } elseif ($active_tab = 'hsb_network_settings') {
+                } elseif ( $active_tab == 'hsb_network_display_settings' ) {
+                    do_settings_sections('hsb_network_display_settings');
+                } elseif ( $active_tab == 'hsb_network_settings' ) {
                     do_settings_sections('hsb_network_settings');
-                };        
+                };
                 submit_button(); ?>
             </form>
         </div>
@@ -349,7 +389,7 @@ class Wp_dashboard_Beacon_Multisite {
     
         // This is the list of registered options.
         global $new_whitelist_options;
-        $options = array_merge($new_whitelist_options['hsb_network_options_page'], $new_whitelist_options['hsb_network_settings']);
+        $options = array_merge($new_whitelist_options['hsb_network_options_page'], $new_whitelist_options['hsb_network_settings'], $new_whitelist_options['hsb_network_display_settings']);
         
         foreach ($options as $option) {
             if (isset($_POST[$option])) {

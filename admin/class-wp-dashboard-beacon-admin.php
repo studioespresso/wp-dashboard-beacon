@@ -247,7 +247,7 @@ class Wp_Dashboard_Beacon_Admin {
                 )
             )
         );
-        // Subdomain field
+        // Contact form instructions
         add_settings_field(
             'hsb_beacon_intro',                                      // ID used to identify the field throughout the theme
             __('Contact form instructions', 'wp-dashboard-beacon'),                                                   // The label to the left of the option interface element
